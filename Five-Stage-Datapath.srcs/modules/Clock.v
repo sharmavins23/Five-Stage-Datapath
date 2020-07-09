@@ -7,6 +7,15 @@
 
 
 module Clock(
-        
+    // Outputs
+    output reg signal;
     );
+    
+    initial begin
+        signal <= 0; // Assign our initial clock value 
+    end
+    
+    always begin
+        #5; // One clock cycle takes 10ns.
+    end
 endmodule

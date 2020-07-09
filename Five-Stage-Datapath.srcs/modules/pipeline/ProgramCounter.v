@@ -10,6 +10,15 @@
 
 
 module ProgramCounter(
-
+    // Inputs
+    input clock,
+    input [31:0] nextAddress,
+    // Outputs
+    output reg [31:0] currentAddress
     );
+    
+    always @(posedge clock) begin
+        // Set next program counter value to the input
+        currentAddress <= nextAddress;
+    end
 endmodule

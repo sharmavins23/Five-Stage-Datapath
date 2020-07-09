@@ -9,6 +9,19 @@
 
 
 module PCAdder(
-
+    // Inputs
+    input [31:0] currentAddress,
+    // Outputs
+    output reg [31:0] nextAddress
     );
+    
+    initial begin
+        // Our program starts at address 100, so at the start we'll pass in 100
+        nextAddress = 100;
+    end
+    
+    always @(*) begin
+        // Iterate the address up by one word
+        nextAddress = currentAddress + 4;
+    end
 endmodule

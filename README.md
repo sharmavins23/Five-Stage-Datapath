@@ -1,5 +1,9 @@
 # Five Stage Datapath
 
+This project is a simplified version of a MIPS architecture based datapath,
+created for my computer architecture class. The finalized circuit is shown
+below.
+
 ![img](https://camo.githubusercontent.com/3508ea9870ab67374ad443b21253e9b657eb7d16/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3730383439333337353734353033323231332f3733303838353437353436333732353135362f756e6b6e6f776e2e706e67)
 
 # License TL;DR

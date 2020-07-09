@@ -8,7 +8,7 @@
 
 module Clock(
     // Outputs
-    output reg signal;
+    output reg signal
     );
     
     initial begin

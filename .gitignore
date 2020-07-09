@@ -1,0 +1,6 @@
+/.Xil
+/Five-Stage-Datapath.cache
+/Five-Stage-Datapath.hw
+/Five-Stage-Datapath.ip_user_files
+vivado*.jou
+vivado*.log

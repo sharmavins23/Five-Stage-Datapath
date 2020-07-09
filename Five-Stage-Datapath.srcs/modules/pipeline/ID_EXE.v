@@ -1,23 +1,13 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07/09/2020 05:40:31 PM
-// Design Name: 
-// Module Name: ID_EXE
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Module Name: Instruction Decode/Execution Stage Pipeline Register
+// Instruction Stage: Pipeline Register
+//
+// Description: Pipeline register between stages 2 and 3 of the datapath. Passes
+//              through most control unit signals, as well as destination signal
+//              chosen, immediate sign extension signals, and loaded registry
+//              values.
+////////////////////////////////////////////////////////////////////////////////
 
 
 module ID_EXE(

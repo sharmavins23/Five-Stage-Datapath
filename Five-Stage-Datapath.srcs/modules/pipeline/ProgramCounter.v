@@ -1,23 +1,12 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07/09/2020 05:39:13 PM
-// Design Name: 
-// Module Name: ProgramCounter
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Module Name: Program Counter Register
+// Instruction Stage: Pipeline Register
+//
+// Description: Pipeline register that begins stage 1 of the datapath. This
+//              register iterates through the instructions in the MIPS assembly
+//              program.
+////////////////////////////////////////////////////////////////////////////////
 
 
 module ProgramCounter(

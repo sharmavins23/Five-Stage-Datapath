@@ -1,23 +1,12 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 07/09/2020 05:40:31 PM
-// Design Name: 
-// Module Name: IF_ID
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Module Name: Instruction Fetch/Instruction Decode Stage Pipeline Register
+// Instruction Stage: Pipeline Register
+//
+// Description: Pipeline register between stages 1 and 2 of the datapath. Passes
+//              through an untouched version of the current instruction each
+//              clock cycle.
+////////////////////////////////////////////////////////////////////////////////
 
 
 module IF_ID(

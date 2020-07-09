@@ -2,5 +2,6 @@
 /Five-Stage-Datapath.cache
 /Five-Stage-Datapath.hw
 /Five-Stage-Datapath.ip_user_files
+/Five-Stage-Datapath.sim
 vivado*.jou
 vivado*.log

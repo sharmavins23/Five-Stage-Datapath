@@ -7,7 +7,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-module Testbench(
+module Testbench();
+    // Wire instantiation
+    wire clockSignal;
+    // Module instantiation
+    Clock Clock(clockSignal);
 
-    );
+    initial begin
+        #5; // Positive edge of the first clock cycle //////////////////////////
+    end
 endmodule

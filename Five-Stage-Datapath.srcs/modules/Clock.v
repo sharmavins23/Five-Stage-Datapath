@@ -17,5 +17,6 @@ module Clock(
     
     always begin
         #5; // One clock cycle takes 10ns.
+        signal = ~signal;
     end
 endmodule

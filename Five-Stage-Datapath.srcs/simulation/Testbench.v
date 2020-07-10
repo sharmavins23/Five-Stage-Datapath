@@ -9,9 +9,11 @@
 
 module Testbench();
     // Wire instantiation
-    wire clockSignal;
+    wire clock;
+    wire [31:0] currentPC;
     // Module instantiation
-    Clock Clock(clockSignal);
+    Clock Clock(clock);
+    Datapath Datapath(clock, currentPC);
 
     initial begin
         #5; // Positive edge of the first clock cycle //////////////////////////

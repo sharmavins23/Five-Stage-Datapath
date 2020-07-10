@@ -11,6 +11,29 @@
 
 
 module ControlUnit(
-
+    // Inputs
+    input [5:0] opCode,
+    input [5:0] funct,
+    // Outputs
+    output reg registerWrite,
+    output reg memoryToRegister,
+    output reg memoryWrite,
+    output reg [3:0] aluControl,
+    output reg aluImmediate,
+    output reg destinationRegisterRT
     );
+
+    always @(*) begin
+        case(opCode)
+            // i-format ////////////////////////////////////////////////////////
+            6'b100011: begin // lw: load word
+                registerWrite = 1;
+                memoryToRegister = 1;
+                memoryWrite = 0;
+                aluControl = 4'b0010;
+                aluImmediate = 1;
+                destinationRegisterRT = 1;
+            end
+        endcase
+    end
 endmodule

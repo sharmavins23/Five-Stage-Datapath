@@ -14,20 +14,39 @@ module Datapath(
     input clock,
     // Outputs
     output [31:0] currentPC,
-    output [31:0] savedInstruction
+    output [31:0] savedInstruction,
+    output eregisterWrite,
+    output ememoryToRegister,
+    output ememoryWrite,
+    output [3:0] ealuControl,
+    output ealuImmediate,
+    output [4:0] edestination,
+    output [31:0] eregisterQA,
+    output [31:0] eregisterQB,
+    output [31:0] eimmediateExtended
     );
     
     // Wire instantiation //////////////////////////////////////////////////////
 
     // Pipeline
     wire [31:0] nextPC;
+    wire [31:0] immediateExtended;
+    wire registerWrite;
+    wire memoryToRegister;
+    wire memoryWrite;
+    wire [3:0] aluControl;
+    wire aluImmediate;
+    wire destinationRegisterRT;
+    wire [31:0] registerQA;
+    wire [31:0] registerQB;
+    wire [4:0] destination;
 
     // Instruction Fetch
     wire [31:0] loadedInstruction;
 
     // Instruction Decode
     wire [5:0] opCode;
-    assign op = savedInstruction[31:26];
+    assign opCode = savedInstruction[31:26];
     wire [5:0] funct;
     assign funct = savedInstruction[5:0];
     wire [4:0] rs;
@@ -40,21 +59,33 @@ module Datapath(
     assign shamt = savedInstruction[10:6];
     wire [15:0] immediate;
     assign immediate = savedInstruction[15:0];
-    wire [31:0] immediateExtended;
-    wire registerWrite;
-    wire memoryToRegister;
-    wire memoryWrite;
-    wire [3:0] aluControl;
-    wire aluImmediate;
-    wire destinationRegisterRT;
-    wire [31:0] registerQA;
-    wire [31:0] registerQB;
 
     // Module instantiation ////////////////////////////////////////////////////
 
     // Pipeline
     ProgramCounter ProgramCounter(clock, nextPC, currentPC);
     IF_ID IF_ID(clock, loadedInstruction, savedInstruction);
+    ID_EXE ID_EXE(
+        clock,
+        registerWrite,
+        memoryToRegister,
+        memoryWrite,
+        aluControl,
+        aluImmediate,
+        destination,
+        registerQA,
+        registerQB,
+        immediateExtended,
+        eregisterWrite,
+        ememoryToRegister,
+        ememoryWrite,
+        ealuControl,
+        ealuImmediate,
+        edestination,
+        eregisterQA,
+        eregisterQB,
+        eimmediateExtended
+    );
 
     // Instruction Fetch
     PCAdder PCAdder(currentPC, nextPC);
@@ -71,4 +102,7 @@ module Datapath(
         aluImmediate,
         destinationRegisterRT
         );
+    DestinationMux DestinationMux(rd, rt, destinationRegisterRT, destination);
+    RegistryMemory RegistryMemory(clock, rs, rt, registerQA, registerQB);
+    SignExtension SignExtension(immediate, immediateExtended);
 endmodule

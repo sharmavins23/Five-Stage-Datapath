@@ -9,6 +9,14 @@
 
 
 module SignExtension(
-
+    // Inputs
+    input [15:0] immediate,
+    // Outputs
+    output reg [31:0] immediateExtended
     );
+
+    always @(*) begin
+        // Concatenation to size increase
+        immediateExtended = {{16{1'b0}}, immediate};
+    end
 endmodule

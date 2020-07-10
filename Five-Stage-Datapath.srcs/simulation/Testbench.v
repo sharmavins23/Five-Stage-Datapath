@@ -8,16 +8,42 @@
 
 
 module Testbench();
-    // Wire instantiation
+    // Wire instantiation //////////////////////////////////////////////////////
+
+    // Program Counter
     wire clock;
     wire [31:0] currentPC;
+    
+    // Instruction Fetch
     wire [31:0] savedInstruction;
-    // Module instantiation
+
+    // Instruction Decode
+    wire eregisterWrite;
+    wire ememoryToRegister;
+    wire ememoryWrite;
+    wire [3:0] ealuControl;
+    wire ealuImmediate;
+    wire [4:0] edestination;
+    wire [31:0] eregisterQA;
+    wire [31:0] eregisterQB;
+    wire [31:0] eimmediateExtended;
+
+    // Module instantiation ////////////////////////////////////////////////////
+
     Clock Clock(clock);
     Datapath Datapath(
         clock,
         currentPC,
-        savedInstruction
+        savedInstruction,
+        eregisterWrite,
+        ememoryToRegister,
+        ememoryWrite,
+        ealuControl,
+        ealuImmediate,
+        edestination,
+        eregisterQA,
+        eregisterQB,
+        eimmediateExtended
         );
     
     initial begin

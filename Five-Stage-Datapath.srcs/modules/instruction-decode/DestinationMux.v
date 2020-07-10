@@ -10,6 +10,16 @@
 
 
 module DestinationMux(
-
+    // Inputs
+    input [4:0] rd,
+    input [4:0] rt,
+    input destinationRegisterRT,
+    // Outputs
+    output reg [4:0] destination
     );
+
+    always @(*) begin
+        if (destinationRegisterRT) destination = rt;
+        else destination = rd;
+    end
 endmodule

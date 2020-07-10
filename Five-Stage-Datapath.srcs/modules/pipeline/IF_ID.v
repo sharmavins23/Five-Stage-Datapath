@@ -10,6 +10,15 @@
 
 
 module IF_ID(
-
+    // Inputs
+    input clock,
+    input [31:0] loadedInstruction,
+    // Outputs
+    output reg [31:0] savedInstruction
     );
+    
+    always @(posedge clock) begin
+        // Save the instruction being pushed in
+        savedInstruction <= loadedInstruction;
+    end
 endmodule

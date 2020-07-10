@@ -11,7 +11,9 @@ module Testbench();
     // Wire instantiation //////////////////////////////////////////////////////
 
     // Program Counter
-    wire clock;
+    reg enable;
+    wire clockSignal;
+    assign clock = clockSignal && enable;
     wire [31:0] currentPC;
     
     // Instruction Fetch
@@ -30,7 +32,7 @@ module Testbench();
 
     // Module instantiation ////////////////////////////////////////////////////
 
-    Clock Clock(clock);
+    Clock Clock(clockSignal);
     Datapath Datapath(
         clock,
         currentPC,
@@ -47,6 +49,23 @@ module Testbench();
         );
     
     initial begin
+        enable = 1; // Enable signal on clock
+
         #5; // Positive edge of the first clock cycle //////////////////////////
+            // First instruction enters Instruction Fetch
+
+        #10; // Positive edge of the second clock cycle ////////////////////////
+            // First instruction enters Instruction Decode
+            // Second instruction enters Instruction Fetch
+
+        #10; // Positive edge of the third clock cycle /////////////////////////
+            // Second instruction enters Instruction Decode
+
+        #10; // Positive edge of the fourth clock cycle ////////////////////////
+            // All instructions have completed current processing.
+
+        #15; // Positive edge of the fifth clock cycle /////////////////////////
+        
+        enable = 0; // Stop clock motion
     end
 endmodule

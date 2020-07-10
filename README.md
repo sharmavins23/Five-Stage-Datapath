@@ -11,6 +11,37 @@ shown below.
 The project is a 32-bit CPU designed to execute MIPS assembly code loaded in. It
 runs on the XC7Z010CLG400-1 FPGA.
 
+Currently, it is capable of one instruction - load word. At the current stage of
+the project, only the Instruction Fetch stage and Instruction Decode stages are
+implemented. Two instructions are preloaded into the instruction memory as 32
+bit binary instructions, and these are loaded, split into the individual
+portions, and sent through the two pipeline registers.
+
+The clock signal has an enable input that, when high, allows the register to
+keep processing. In the testbench, the individual clock cycles are also tracked
+to show where the individual programs are in the datapath.
+
+## Sample Waveforms
+
+This is a sample of the waveform output that the project currently generates.
+After writing this code, a lot of the variable names were changed, but follow
+the same format - just extended.
+
+![img](https://cdn.discordapp.com/attachments/708493375745032213/730191509420376103/unknown.png)
+
+## Project Filestructure
+
+The modules are individually sorted into folders depending on their stage in the
+datapath. At the highest level, the Datapath module contains all of the wiring
+and connecting instructions for all other modules, excluding the clock module.
+
+    Five-Stage-Datapath.srcs
+    ├───modules                     # Contains all design sources
+    │   ├───instruction-decode
+    │   ├───instruction-fetch
+    │   └───pipeline
+    └───simulation                  # Contains all simulation sources
+
 # License TL;DR
 
 This project is distributed under the MIT license. This is a paraphrasing of a

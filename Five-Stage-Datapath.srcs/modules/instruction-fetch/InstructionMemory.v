@@ -42,7 +42,7 @@ module InstructionMemory(
         // Fetch instruction given address, loading each individual byte
         loadedInstruction[31:24] = instructionMemory[address];
         loadedInstruction[23:16] = instructionMemory[address+1];
-        loadedInstruction[15:8]  = instructionMemory[address+2];
-        loadedInstruction[7:0]   = instructionMemory[address+3];
+        loadedInstruction[15:8] = instructionMemory[address+2];
+        loadedInstruction[7:0] = instructionMemory[address+3];
     end
 endmodule

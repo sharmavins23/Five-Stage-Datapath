@@ -3,8 +3,9 @@
 // Module Name: Datapath
 //
 // Description: Module that combines together all other individual datapath
-//              modules. This module will expose all important signals to the
-//              testbench.
+//              modules. This module will expose all important signals (mostly
+//              the pipeline saved data signals) to the testbench for simplified
+//              waveform analysis.
 ////////////////////////////////////////////////////////////////////////////////
 
 

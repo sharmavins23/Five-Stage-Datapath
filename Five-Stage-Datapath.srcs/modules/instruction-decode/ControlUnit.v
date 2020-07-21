@@ -45,10 +45,15 @@ module ControlUnit(
                     6'b100101: // or: register OR
                         aluControl = 4'b0001;
                     6'b100110: // xor: register XOR
+                        aluControl = 4'bxxxx;
                     6'b000000: // sll: shift left
+                        aluControl = 4'bxxxx;
                     6'b000010: // srl: logical shift right
+                        aluControl = 4'bxxxx;
                     6'b000011: // sra: arithmetic shift right
+                        aluControl = 4'bxxxx;
                     6'b001000: // jr: register jump
+                        aluControl = 4'bxxxx;
                 endcase
             end
             // i-format ////////////////////////////////////////////////////////
@@ -70,19 +75,19 @@ module ControlUnit(
             end
             6'b101011: begin // sw: store memory word
                 registerWrite = 0;
-                memoryToRegister = 0;
+                memoryToRegister = 1'bx;
                 memoryWrite = 1;
                 aluControl = 4'b0010;
                 aluImmediate = 1;
-                destinationRegisterRT = 1;
+                destinationRegisterRT = 1'bx;
             end
             6'b000100: begin // beq: branch on equal
                 registerWrite = 0;
-                memoryToRegister = 0;
+                memoryToRegister = 1'bx;
                 memoryWrite = 0;
                 aluControl = 4'b0110;
                 aluImmediate = 1;
-                destinationRegisterRT = 1;
+                destinationRegisterRT = 1'bx;
             end
             6'b000101: begin // bne: branch on not equal
             end

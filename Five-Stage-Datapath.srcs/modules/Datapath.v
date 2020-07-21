@@ -13,9 +13,9 @@ module Datapath(
     // Inputs
     input clock,
     // Outputs
-    output [31:0] currentPC,
-    output [31:0] savedInstruction,
-    output eregisterWrite,
+    output [31:0] currentPC, // Program Counter
+    output [31:0] savedInstruction, // Instruction Fetch/Instruction Decode
+    output eregisterWrite, // Instruction Decode/Execution
     output ememoryToRegister,
     output ememoryWrite,
     output [3:0] ealuControl,
@@ -23,7 +23,14 @@ module Datapath(
     output [4:0] edestination,
     output [31:0] eregisterQA,
     output [31:0] eregisterQB,
-    output [31:0] eimmediateExtended
+    output [31:0] eimmediateExtended,
+    output mregisterWrite, // Execution/Memory Access
+    output mmemoryToRegister,
+    output mmemoryWrite,
+    output [4:0] mdestination,
+    output [31:0] maluOut,
+    output [31:0] mloadedRegister
+    // Memory Access/Write Back
     );
     
     // Wire instantiation //////////////////////////////////////////////////////
@@ -60,6 +67,30 @@ module Datapath(
     wire [15:0] immediate;
     assign immediate = savedInstruction[15:0];
 
+    // Execution
+    wire ewreg;
+    assign ewreg = eregisterWrite;
+    wire em2reg;
+    assign em2reg = ememoryToRegister;
+    wire ewmem;
+    assign ewmem = ememoryWrite;
+    wire [3:0] ealuc;
+    assign ealuc = ealuControl;
+    wire ealuimm;
+    assign ealuimm = ealuImmediate;
+    wire [4:0] edest;
+    assign edest = edestination;
+    wire [31:0] eqa;
+    assign eqa = eregisterQA;
+    wire [31:0] eqb;
+    assign eqb = eregisterQB;
+    wire [31:0] eimm;
+    assign eimm = eimmediateExtended;
+    wire [31:0] chosenRegister;
+    wire [31:0] aluOut;
+
+    // Memory Access
+
     // Module instantiation ////////////////////////////////////////////////////
 
     // Pipeline
@@ -86,6 +117,21 @@ module Datapath(
         eregisterQB,
         eimmediateExtended
     );
+    EXE_MEM EXE_MEM(
+        clock,
+        ewreg,
+        em2reg,
+        ewmem,
+        edest,
+        aluOut,
+        eqb,
+        mregisterWrite,
+        mmemoryToRegister,
+        mmemoryWrite,
+        mdestination,
+        maluOut,
+        mloadedRegister
+    );
 
     // Instruction Fetch
     PCAdder PCAdder(currentPC, nextPC);
@@ -105,4 +151,10 @@ module Datapath(
     DestinationMux DestinationMux(rd, rt, destinationRegisterRT, destination);
     RegistryMemory RegistryMemory(clock, rs, rt, registerQA, registerQB);
     SignExtension SignExtension(immediate, immediateExtended);
+
+    // Execution
+    ALUImmediateMux ALUImmediateMux(ealuimm, eqb, eimm, chosenRegister);
+    ArithmeticLogicUnit ArithmeticLogicUnit(ealuc, eqa, chosenRegister, aluOut);
+
+    // Memory Access
 endmodule

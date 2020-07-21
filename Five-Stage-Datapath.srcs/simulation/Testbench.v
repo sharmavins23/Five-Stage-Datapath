@@ -30,6 +30,14 @@ module Testbench();
     wire [31:0] eregisterQB;
     wire [31:0] eimmediateExtended;
 
+    // Execution
+    wire mregisterWrite;
+    wire mmemoryToRegister;
+    wire mmemoryWrite;
+    wire [4:0] mdestination;
+    wire [31:0] maluOut;
+    wire [31:0] mloadedRegister;
+
     // Module instantiation ////////////////////////////////////////////////////
 
     Clock Clock(clockSignal);
@@ -45,7 +53,13 @@ module Testbench();
         edestination,
         eregisterQA,
         eregisterQB,
-        eimmediateExtended
+        eimmediateExtended,
+        mregisterWrite,
+        mmemoryToRegister,
+        mmemoryWrite,
+        mdestination,
+        maluOut,
+        mloadedRegister
         );
     
     initial begin

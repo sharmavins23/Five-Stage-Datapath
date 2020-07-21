@@ -5,3 +5,4 @@
 /Five-Stage-Datapath.sim
 vivado*.jou
 vivado*.log
+vivado*.str

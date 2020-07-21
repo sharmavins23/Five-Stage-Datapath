@@ -36,6 +36,22 @@ module InstructionMemory(
         instructionMemory[106] = 8'b00000000;
         instructionMemory[107] = 8'b00000100;
         // This has a hex value of 0x8C230004
+
+        // lw $a0, 08($at)
+        // 100011 00001 00100 0000000000001000
+        instructionMemory[108] = 8'b10001100;
+        instructionMemory[109] = 8'b00100100;
+        instructionMemory[110] = 8'b00000000;
+        instructionMemory[111] = 8'b00001000;
+        // This has a hex value of 0x8C240008
+
+        // lw $a1, 12($at)
+        // 100011 00001 00101 0000000000001100
+        instructionMemory[112] = 8'b10001100;
+        instructionMemory[113] = 8'b00100101;
+        instructionMemory[114] = 8'b00000000;
+        instructionMemory[115] = 8'b00001100;
+        // This has a hex value of 0x8C25000C
     end
     
     always @(*) begin

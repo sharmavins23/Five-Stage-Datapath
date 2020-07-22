@@ -11,15 +11,29 @@ shown below.
 The project is a 32-bit CPU designed to execute MIPS assembly code loaded in. It
 runs on the XC7Z010CLG400-1 FPGA.
 
-Currently, it is capable of one instruction - load word. At the current stage of
-the project, only the Instruction Fetch stage and Instruction Decode stages are
-implemented. Two instructions are preloaded into the instruction memory as 32
-bit binary instructions, and these are loaded, split into the individual
-portions, and sent through the two pipeline registers.
+Currently, it is capable of several instructions, but mostly has implementations
+for `lw: load memory word` and `sw: store memory word`. At the current stage of
+the project, the first four stages (Instruction Fetch, Instruction Decode,
+Execution, and Memory Access) are implemented. Four `lw` instructions are
+preloaded into the instruction memory, and several data values are preloaded
+into the data memory block. These instructions are loaded and executed to load
+data memory values.
 
 The clock signal has an enable input that, when high, allows the register to
 keep processing. In the testbench, the individual clock cycles are also tracked
 to show where the individual programs are in the datapath.
+
+The current version of the design faces many issues with timing hazards, as
+while the processor is pipelined, instructions that require synchronous
+execution will load false data values ahead of each other. However, the project
+is still a work in progress.
+
+## Circuit Schematic
+
+A schematic of the working circuit is depicted below. This is automatically
+generated thanks to Xilinx Vivado's built-in RTL analysis.
+
+![img](https://cdn.discordapp.com/attachments/708493375745032213/735331637214183457/unknown.png)
 
 ## Sample Waveforms
 
@@ -27,7 +41,7 @@ This is a sample of the waveform output that the project currently generates.
 After writing this code, a lot of the variable names were changed, but follow
 the same format - just extended.
 
-![img](https://cdn.discordapp.com/attachments/708493375745032213/730191509420376103/unknown.png)
+![img](https://cdn.discordapp.com/attachments/708493375745032213/735330083807559691/unknown.png)
 
 ## Project Filestructure
 
@@ -37,8 +51,10 @@ and connecting instructions for all other modules, excluding the clock module.
 
     Five-Stage-Datapath.srcs
     ├───modules                     # Contains all design sources
+    │   ├───execution
     │   ├───instruction-decode
     │   ├───instruction-fetch
+    │   ├───memory-access
     │   └───pipeline
     └───simulation                  # Contains all simulation sources
 

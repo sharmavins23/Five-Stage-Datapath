@@ -3,6 +3,7 @@
 /Five-Stage-Datapath.hw
 /Five-Stage-Datapath.ip_user_files
 /Five-Stage-Datapath.sim
+/Five-Stage-Datapath.runs
 vivado*.jou
 vivado*.log
 vivado*.str

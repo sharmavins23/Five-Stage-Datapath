@@ -29,8 +29,12 @@ module Datapath(
     output mmemoryWrite,
     output [4:0] mdestination,
     output [31:0] maluOut,
-    output [31:0] mloadedRegister
-    // Memory Access/Write Back
+    output [31:0] mloadedRegister,
+    output wregisterWrite, // Memory Access/Write Back
+    output wmemoryToRegister,
+    output [4:0] wdestination,
+    output [31:0] waluOut,
+    output [31:0] wloadedData
     );
     
     // Wire instantiation //////////////////////////////////////////////////////
@@ -90,6 +94,19 @@ module Datapath(
     wire [31:0] aluOut;
 
     // Memory Access
+    wire mwreg;
+    assign mwreg = mregisterWrite;
+    wire mm2reg;
+    assign mm2reg = mmemoryToRegister;
+    wire mwmem;
+    assign mwmem = mmemoryWrite;
+    wire [4:0] mdest;
+    assign mdest = mdestination;
+    wire [31:0] mALU;
+    assign mALU = maluOut;
+    wire [31:0] mdataIn;
+    assign mdataIn = mloadedRegister;
+    wire [31:0] mdataMemOut;
 
     // Module instantiation ////////////////////////////////////////////////////
 
@@ -132,6 +149,19 @@ module Datapath(
         maluOut,
         mloadedRegister
     );
+    MEM_WB MEM_WB(
+        clock,
+        mwreg,
+        mm2reg,
+        mdest,
+        mALU,
+        mdataMemOut,
+        wregisterWrite,
+        wmemoryToRegister,
+        wdestination,
+        waluOut,
+        wloadedData
+    );
 
     // Instruction Fetch
     PCAdder PCAdder(currentPC, nextPC);
@@ -157,4 +187,5 @@ module Datapath(
     ArithmeticLogicUnit ArithmeticLogicUnit(ealuc, eqa, chosenRegister, aluOut);
 
     // Memory Access
+    DataMemory DataMemory(mwmem, mALU, mdataIn, mdataMemOut);
 endmodule

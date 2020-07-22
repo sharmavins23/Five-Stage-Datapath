@@ -38,6 +38,13 @@ module Testbench();
     wire [31:0] maluOut;
     wire [31:0] mloadedRegister;
 
+    // Memory Access
+    wire wregisterWrite;
+    wire wmemoryToRegister;
+    wire [4:0] wdestination;
+    wire [31:0] waluOut;
+    wire [31:0] wloadedData;
+
     // Module instantiation ////////////////////////////////////////////////////
 
     Clock Clock(clockSignal);
@@ -59,7 +66,12 @@ module Testbench();
         mmemoryWrite,
         mdestination,
         maluOut,
-        mloadedRegister
+        mloadedRegister,
+        wregisterWrite,
+        wmemoryToRegister,
+        wdestination,
+        waluOut,
+        wloadedData
         );
     
     initial begin
@@ -78,21 +90,27 @@ module Testbench();
             // Third instruction enters Instruction Fetch
 
         #10; // Positive edge of the fourth clock cycle ////////////////////////
-            // First instruction has completed.
+            // First instruction enters Memory Access
             // Second instruction enters Execution
             // Third instruction enters Instruction Decode
             // Fourth instruction enters Instruction Fetch
 
         #10; // Positive edge of the fifth clock cycle /////////////////////////
-            // Second instruction has completed.
+            // First instruction has completed.
+            // Second instruction enters Memory Access
             // Third instruction enters Execution
             // Fourth instruction enters Instruction Decode
 
         #10; // Positive edge of the sixth clock cycle /////////////////////////
-            // Third instruction has completed.
+            // Second instruction has completed.
+            // Third instruction enters Memory Access
             // Fourth instruction enters Execution
         
         #10; // Positive edge of the seventh clock cycle ///////////////////////
+            // Third instruction has completed.
+            // Fourth instruction enters Memory Access
+
+        #10; // Positive edge of the eighth clock cycle ////////////////////////
             // All instructions have completed.
         
         #5;

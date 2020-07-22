@@ -38,8 +38,6 @@ generated thanks to Xilinx Vivado's built-in RTL analysis.
 ## Sample Waveforms
 
 This is a sample of the waveform output that the project currently generates.
-After writing this code, a lot of the variable names were changed, but follow
-the same format - just extended.
 
 ![img](https://cdn.discordapp.com/attachments/708493375745032213/735330083807559691/unknown.png)
 

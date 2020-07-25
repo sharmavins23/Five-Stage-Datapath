@@ -71,6 +71,15 @@ optimization, functionality implementation, and documentation left to do.
 -   Update documentation with information about MIPS instruction set
 -   Update documentation with information about MIPS datapath
 
+## Helpful Links
+
+Here are some helpful links that are useful to read up alongside the project.
+
+-   [MARS Mips Simulator](http://courses.missouristate.edu/kenvollmar/mars/):
+    A MIPS assembler and runtime simulation applet written in Java.
+-   [MIPS Instruction Styleguide](https://cs233.github.io/mipsstyle.html):
+    A style-guide for help with MIPS formatting.
+
 # License TL;DR
 
 This project is distributed under the MIT license. This is a paraphrasing of a

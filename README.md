@@ -56,6 +56,20 @@ and connecting instructions for all other modules, excluding the clock module.
     │   └───pipeline
     └───simulation                  # Contains all simulation sources
 
+## To-do
+
+This project is in an unfinished version, and as such, there's a lot of work in
+optimization, functionality implementation, and documentation left to do.
+
+-   Add functionality for write-back stage
+-   Fix data hazards with stalls
+-   Fix data hazards with forwarding
+-   Add branching functionality
+-   Add jump functionality
+-   Add branch prediction functionality (mostly static)
+-   Update documentation with information about MIPS instruction set
+-   Update documentation with information about MIPS datapath
+
 # License TL;DR
 
 This project is distributed under the MIT license. This is a paraphrasing of a

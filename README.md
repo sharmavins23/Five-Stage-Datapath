@@ -67,6 +67,7 @@ optimization, functionality implementation, and documentation left to do.
 -   Add branching functionality
 -   Add jump functionality
 -   Add branch prediction functionality (mostly static)
+-   Add dynamic branch prediction
 -   Update documentation with information about MIPS instruction set
 -   Update documentation with information about MIPS datapath
 

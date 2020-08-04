@@ -1,7 +1,7 @@
 # Five Stage Datapath
 
 This project is a simplified version of a MIPS assembly architecture based
-datapath, created for my computer architecture class. The finalized circuit is
+datapath, created for my computer architecture class. The implemented circuit is
 shown below.
 
 ![img](https://camo.githubusercontent.com/3508ea9870ab67374ad443b21253e9b657eb7d16/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3730383439333337353734353033323231332f3733303838353437353436333732353135362f756e6b6e6f776e2e706e67)
@@ -11,13 +11,14 @@ shown below.
 The project is a 32-bit CPU designed to execute MIPS assembly code loaded in. It
 runs on the XC7Z010CLG400-1 FPGA.
 
-Currently, it is capable of several instructions, but mostly has implementations
-for `lw: load memory word` and `sw: store memory word`. At the current stage of
-the project, the first four stages (Instruction Fetch, Instruction Decode,
-Execution, and Memory Access) are implemented. Four `lw` instructions are
-preloaded into the instruction memory, and several data values are preloaded
-into the data memory block. These instructions are loaded and executed to load
-data memory values.
+Currently, the datapath is capable of executing a few instructions, but mostly
+has implementations for `lw: load memory word`, `sw: store memory word`, and
+`add: register add`. At the current stage of the project, all five major stages
+of instruction processing (Instruction Fetch, Instruction Decode, Execution,
+Memory Access, and Write Back) are implemented. Four `lw` instructions and one
+`add` instruction are preloaded into the instruction memory, and several data
+values are preloaded into the data memory block. These instructions are loaded
+and executed, and properly write back into the registers.
 
 The clock signal has an enable input that, when high, allows the register to
 keep processing. In the testbench, the individual clock cycles are also tracked
@@ -53,7 +54,8 @@ and connecting instructions for all other modules, excluding the clock module.
     │   ├───instruction-decode
     │   ├───instruction-fetch
     │   ├───memory-access
-    │   └───pipeline
+    │   ├───pipeline
+    │   └───write-back
     └───simulation                  # Contains all simulation sources
 
 ## To-do
@@ -61,7 +63,6 @@ and connecting instructions for all other modules, excluding the clock module.
 This project is in an unfinished version, and as such, there's a lot of work in
 optimization, functionality implementation, and documentation left to do.
 
--   Add functionality for write-back stage
 -   Fix data hazards with stalls
 -   Fix data hazards with forwarding
 -   Add branching functionality

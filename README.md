@@ -34,13 +34,13 @@ is still a work in progress.
 A schematic of the working circuit is depicted below. This is automatically
 generated thanks to Xilinx Vivado's built-in RTL analysis.
 
-![img](https://cdn.discordapp.com/attachments/708493375745032213/735331637214183457/unknown.png)
+![img](https://cdn.discordapp.com/attachments/708493375745032213/740037817866125372/unknown.png)
 
 ## Sample Waveforms
 
 This is a sample of the waveform output that the project currently generates.
 
-![img](https://cdn.discordapp.com/attachments/708493375745032213/735330083807559691/unknown.png)
+![img](https://cdn.discordapp.com/attachments/708493375745032213/740035506229739520/unknown.png)
 
 ## Project Filestructure
 

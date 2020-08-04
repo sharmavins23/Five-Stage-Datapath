@@ -45,6 +45,9 @@ module Testbench();
     wire [31:0] waluOut;
     wire [31:0] wloadedData;
 
+    // Write Back
+    wire [31:0] wDataWritten;
+
     // Module instantiation ////////////////////////////////////////////////////
 
     Clock Clock(clockSignal);
@@ -71,7 +74,8 @@ module Testbench();
         wmemoryToRegister,
         wdestination,
         waluOut,
-        wloadedData
+        wloadedData,
+        wDataWritten
         );
     
     initial begin
@@ -96,21 +100,35 @@ module Testbench();
             // Fourth instruction enters Instruction Fetch
 
         #10; // Positive edge of the fifth clock cycle /////////////////////////
-            // First instruction has completed.
+            // First instruction enters Write Back
             // Second instruction enters Memory Access
             // Third instruction enters Execution
             // Fourth instruction enters Instruction Decode
+            // Fifth instruction enters Instruction Fetch
 
         #10; // Positive edge of the sixth clock cycle /////////////////////////
-            // Second instruction has completed.
+            // First instruction has completed.
+            // Second instruction enters Write Back
             // Third instruction enters Memory Access
             // Fourth instruction enters Execution
+            // Fifth instruction enters Instruction Decode
         
         #10; // Positive edge of the seventh clock cycle ///////////////////////
-            // Third instruction has completed.
+            // Second instruction has completed.
+            // Third instruction enters Write Back
             // Fourth instruction enters Memory Access
+            // Fifth instruction enters Execution
 
         #10; // Positive edge of the eighth clock cycle ////////////////////////
+            // Third instruction has completed.
+            // Fourth instruction enters Write Back
+            // Fifth instruction enters Memory Access
+
+        #10; // Positive edge of the ninth clock cycle /////////////////////////
+            // Fourth instruction has completed.
+            // Fifth instruction enters Write Back
+        
+        #10; // Positive edge of the tenth clock cycle /////////////////////////
             // All instructions have completed.
         
         #5;

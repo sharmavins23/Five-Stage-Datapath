@@ -34,10 +34,13 @@ module Datapath(
     output wmemoryToRegister,
     output [4:0] wdestination,
     output [31:0] waluOut,
-    output [31:0] wloadedData
+    output [31:0] wloadedData,
+    output [31:0] wDataWritten // Write Back feedback signal
     );
     
     // Wire instantiation //////////////////////////////////////////////////////
+    // Wires that are assigned are taking the values from the output of the
+    //  datapath module, or the signals output from the pipeline registers.
 
     // Pipeline
     wire [31:0] nextPC;
@@ -107,6 +110,20 @@ module Datapath(
     wire [31:0] mdataIn;
     assign mdataIn = mloadedRegister;
     wire [31:0] mdataMemOut;
+
+    // Write Back
+    wire wwreg;
+    assign wwreg = wregisterWrite;
+    wire wm2reg;
+    assign wm2reg = wmemoryToRegister;
+    wire [4:0] wdest;
+    assign wdest = wdestination;
+    wire [31:0] wAlu;
+    assign wAlu = waluOut;
+    wire [31:0] wData;
+    assign wData = wloadedData;
+    wire [31:0] writeData;
+    assign writeData = wDataWritten;
 
     // Module instantiation ////////////////////////////////////////////////////
 
@@ -179,7 +196,16 @@ module Datapath(
         destinationRegisterRT
         );
     DestinationMux DestinationMux(rd, rt, destinationRegisterRT, destination);
-    RegistryMemory RegistryMemory(clock, rs, rt, registerQA, registerQB);
+    RegistryMemory RegistryMemory(
+        clock,
+        wwreg,
+        rs,
+        rt,
+        wdest,
+        writeData,
+        registerQA,
+        registerQB
+        );
     SignExtension SignExtension(immediate, immediateExtended);
 
     // Execution
@@ -188,4 +214,7 @@ module Datapath(
 
     // Memory Access
     DataMemory DataMemory(mwmem, mALU, mdataIn, mdataMemOut);
+
+    // Write Back
+    RegWriteMux RegWriteMux(wm2reg, wAlu, wData, wDataWritten);
 endmodule

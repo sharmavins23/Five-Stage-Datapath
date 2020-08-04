@@ -16,7 +16,7 @@ module RegistryMemory(
     input writeEnable,
     input [4:0] rs,
     input [4:0] rt,
-    input [31:0] writeDestination,
+    input [4:0] writeDestination,
     input [31:0] writeData,
     // Outputs
     output reg [31:0] registerQA,

@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-module DestinationMux(
+module RegWriteMux(
     // Inputs
     input memoryToRegister,
     input [31:0] aluOut,

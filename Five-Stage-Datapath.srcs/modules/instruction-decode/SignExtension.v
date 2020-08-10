@@ -17,13 +17,6 @@ module SignExtension(
     output reg [31:0] immediateExtended
     );
 
-    always @(*) begin
-        // Check sign of immediate value
-        if (immediate[15] == 0) // Positive
-            // Simple concatenation to size increase
-            immediateExtended = {{16{1'b0}}, immediate};
-        else
-            // Insert 16 ones to size increase
-            immediateExtended = {{16{1'b1}}, immediate};
-    end
+    // Concatenate the immediate value with the first bit to get proper sign
+    always @(*) immediateExtended = {{17{immediate[15]}}, immediate[14:0]};
 endmodule

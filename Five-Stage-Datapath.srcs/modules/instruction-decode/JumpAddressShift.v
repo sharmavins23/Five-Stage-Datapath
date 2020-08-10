@@ -3,8 +3,8 @@
 // Module Name: Jump Address Shift Register
 // Instruction Stage: Instruction Decode
 //
-// Description: Takes the 26-bit jump address portion of a jump instruction and
-//              shifts it left two bits to create a partial 28-bit jump address.
+// Description: Shifts the input 26-bit jump address portion of the fetched
+//              instruction left two places.
 ////////////////////////////////////////////////////////////////////////////////
 
 

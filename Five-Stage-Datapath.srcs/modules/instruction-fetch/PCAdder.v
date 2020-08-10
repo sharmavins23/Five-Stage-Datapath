@@ -20,6 +20,6 @@ module PCAdder(
         nextAddress = 100;
     end
     
-    // Iterate the address up by two words
+    // Iterate the address up by one word
     always @(*) nextAddress = currentAddress + 4;
 endmodule

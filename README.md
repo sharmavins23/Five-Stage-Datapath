@@ -6,6 +6,8 @@ shown below.
 
 ![img](https://cdn.discordapp.com/attachments/708493375745032213/742434915919855706/unknown.png)
 
+# TODO: Rewrite 90% of this readme.
+
 ## Overview
 
 The project is a 32-bit CPU designed to execute MIPS assembly code loaded in. It

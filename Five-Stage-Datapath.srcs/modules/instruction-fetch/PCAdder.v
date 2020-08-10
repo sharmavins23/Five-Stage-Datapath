@@ -7,7 +7,7 @@
 //              instruction memory on every single clock cycle.
 ////////////////////////////////////////////////////////////////////////////////
 
-
+// This could be a universal module.
 module PCAdder(
     // Inputs
     input [31:0] currentAddress,

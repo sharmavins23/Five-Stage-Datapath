@@ -85,6 +85,8 @@ Here are some helpful links that are useful to read up alongside the project.
 -   [MIPS Converter](https://www.eg.bucknell.edu/~csci320/mips_web/):
     A tool developed by Bucknell University for converting MIPS assembly code to
     binary and hexadecimal instructions.
+-   [MIPS Instruction Reference](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html):
+    This is a reference of all MIPS instructions and their meanings/syntax.
 
 # License TL;DR
 

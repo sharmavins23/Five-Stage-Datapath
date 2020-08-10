@@ -80,6 +80,9 @@ Here are some helpful links that are useful to read up alongside the project.
     A MIPS assembler and runtime simulation applet written in Java.
 -   [MIPS Instruction Styleguide](https://cs233.github.io/mipsstyle.html):
     A style-guide for help with MIPS formatting.
+-   [MIPS Converter](https://www.eg.bucknell.edu/~csci320/mips_web/):
+    A tool developed by Bucknell University for converting MIPS assembly code to
+    binary and hexadecimal instructions.
 
 # License TL;DR
 

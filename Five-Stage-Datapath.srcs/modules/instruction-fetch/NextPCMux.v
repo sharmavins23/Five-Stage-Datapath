@@ -14,7 +14,7 @@
 
 module NextPCMux(
     // Inputs
-    input [1:0] programCounterSelector
+    input [1:0] programCounterSelector,
     input [31:0] currentPCPlusFour,
     input [31:0] branchingTarget,
     input [31:0] jumpRegisterTarget,

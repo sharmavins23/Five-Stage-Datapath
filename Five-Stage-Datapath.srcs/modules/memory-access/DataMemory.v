@@ -6,6 +6,7 @@
 // Description: Contains all of the program (stack) data, addressed in sets of
 //              byte portions. Each instruction is four memory locations long.
 //              Data can be written or read out using a data readout signal.
+//              In an actual computer, this is the RAM module.
 ////////////////////////////////////////////////////////////////////////////////
 
 

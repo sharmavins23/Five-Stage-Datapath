@@ -246,14 +246,16 @@ module Datapath(
         qa,
         ealu,
         malu,
-        mmo
+        mmo,
+        da
     );
     ForwardMux ForwardMuxB(
         fwdb,
         qb,
         ealu,
         malu,
-        mmo
+        mmo,
+        db
     );
     ALUInEqualCheck ALUInEqualCheck(
         da,

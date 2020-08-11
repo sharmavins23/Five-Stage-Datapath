@@ -55,14 +55,14 @@ class binToHexConverter:
             # Loop through byte portions
             for byte in byteset:
                 addr = str(itr).zfill(3)  # Pad itr value to 3 spaces
-                print(f"instructionMemory[{addr}]=8'b{byte};", end="")
+                print(f"instructionMemory[{addr}] = 8'b{byte};", end="")
 
                 if itr % 4 == 0:
                     print(f" // 0x{hexInst}", end="")
 
-                print("")  # End the line
-
                 itr += 1
+
+                print("")  # end the line
 
             print("")  # Newline
 

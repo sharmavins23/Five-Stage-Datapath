@@ -46,6 +46,11 @@ module ControlUnit(
     // Signals stating whether rs and rt registers are used
     reg isRSUsed, isRTUsed;
 
+    initial begin
+        pcSource = 2'b00; // Select the PC adder
+        pcWriteEnable = 1;
+    end
+
     always @(*) begin
         // * MIPS Instruction signal encoding
         case(opCode)

@@ -196,7 +196,7 @@ module Datapath(
     );
 
     // Instruction Fetch
-    NextPCMux NextPCMux(pcsrc, pc4, bpc, da, jpcTotal);
+    NextPCMux NextPCMux(pcsrc, pc4, bpc, da, jpcTotal, npc);
     PCAdder PCAdder(pc, pc4);
     InstructionMemory InstructionMemory(pc, ins);
 

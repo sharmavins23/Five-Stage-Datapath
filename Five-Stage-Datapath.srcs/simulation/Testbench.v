@@ -101,6 +101,9 @@ module Testbench();
         // In this program's case, the absolute maximum number of clock cycles
         //  to execute the program would be 73.
         #730;
+        // The program does have looping behavior, so it might possibly compute
+        //  more than 35 instructions. However, doubling the amount of
+        //  instructions is, for our purposes, a generous estimate.
 
         #5; // Down to negative edge
         enable = 0; // Stop clock motion

@@ -11,8 +11,8 @@
 module RegWriteMux(
     // Inputs
     input memoryToRegister,
-    input [31:0] aluOut,
     input [31:0] loadedData,
+    input [31:0] aluOut,
     // Outputs
     output reg [31:0] registerData
     );

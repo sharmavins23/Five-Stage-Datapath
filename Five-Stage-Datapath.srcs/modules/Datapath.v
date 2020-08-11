@@ -278,10 +278,8 @@ module Datapath(
     // Memory Access
     DataMemory DataMemory(mwmem, malu, mb, mmo);
 
-
-
     // Write Back
-    RegWriteMux RegWriteMux(wm2reg, wAlu, wData, wDataWritten);
+    RegWriteMux RegWriteMux(wm2reg, wmo, walu, wdi);
 
     always @(*) begin
         // Output assignments

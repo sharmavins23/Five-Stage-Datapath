@@ -22,7 +22,7 @@ module Datapath(
     output reg ejalInstruction,
     output reg [3:0] ealuControl,
     output reg ealuImmediate,
-    output reg eShiftRegister,
+    output reg eshiftRegister,
     output reg [31:0] enextPC,
     output reg [31:0] eregisterQA,
     output reg [31:0] eregisterQB,
@@ -292,7 +292,7 @@ module Datapath(
         ejalInstruction = ejal;
         ealuControl = ealuc;
         ealuImmediate = ealuimm;
-        eShiftRegister = eshift;
+        eshiftRegister = eshift;
         enextPC = epc4;
         eregisterQA = ea;
         eregisterQB = eb;

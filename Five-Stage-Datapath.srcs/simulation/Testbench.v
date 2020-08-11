@@ -20,30 +20,34 @@ module Testbench();
     wire [31:0] savedInstruction;
 
     // Instruction Decode
+    wire stall;
     wire eregisterWrite;
     wire ememoryToRegister;
     wire ememoryWrite;
+    wire ejalInstruction;
     wire [3:0] ealuControl;
     wire ealuImmediate;
-    wire [4:0] edestination;
+    wire eshiftRegister;
+    wire [31:0] enextPC;
     wire [31:0] eregisterQA;
     wire [31:0] eregisterQB;
     wire [31:0] eimmediateExtended;
+    wire [4:0] edestination;
 
     // Execution
     wire mregisterWrite;
     wire mmemoryToRegister;
     wire mmemoryWrite;
-    wire [4:0] mdestination;
     wire [31:0] maluOut;
     wire [31:0] mloadedRegister;
+    wire [4:0] mdestination;
 
     // Memory Access
     wire wregisterWrite;
     wire wmemoryToRegister;
-    wire [4:0] wdestination;
-    wire [31:0] waluOut;
     wire [31:0] wloadedData;
+    wire [31:0] waluOut;
+    wire [4:0] wdestination;
 
     // Write Back
     wire [31:0] wDataWritten;
@@ -55,26 +59,30 @@ module Testbench();
         clock,
         currentPC,
         savedInstruction,
+        stall,
         eregisterWrite,
         ememoryToRegister,
         ememoryWrite,
+        ejalInstruction,
         ealuControl,
         ealuImmediate,
-        edestination,
+        eshiftRegister,
+        enextPC,
         eregisterQA,
         eregisterQB,
         eimmediateExtended,
+        edestination,
         mregisterWrite,
         mmemoryToRegister,
         mmemoryWrite,
-        mdestination,
         maluOut,
         mloadedRegister,
+        mdestination,
         wregisterWrite,
         wmemoryToRegister,
-        wdestination,
-        waluOut,
         wloadedData,
+        waluOut,
+        wdestination,
         wDataWritten
         );
     

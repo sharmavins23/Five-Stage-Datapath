@@ -226,7 +226,7 @@ module ControlUnit(
                 jalInstruction = 0;
                 aluControl = 4'bxxxx; // Don't care
                 aluImmediate = 1'bx;
-                shiftInstruction = 1'bx;
+                shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1'bx;
             end
@@ -238,7 +238,7 @@ module ControlUnit(
                 jalInstruction = 1;
                 aluControl = 4'bxxxx; // Don't care
                 aluImmediate = 1'bx;
-                shiftInstruction = 1'bx;
+                shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1'bx;
             end
@@ -253,10 +253,14 @@ module ControlUnit(
         //  rs or rt...
         stall = eregisterWrite & ememoryToRegister & (eregisterNumber != 0) & ((isRSUsed & (eregisterNumber == rs)) | (isRTUsed & (eregisterNumber == rt)));
         // There will be a stall. In which case...
-        registerWrite = 0; // Do not write anything to any registers.
-        memoryWrite = 0; // Do not write anything to memory.
+        if (stall) begin
+            registerWrite = 0; // Do not write anything to any registers.
+            memoryWrite = 0; // Do not write anything to memory.
+            pcWriteEnable = 0;
+        end else begin
+            pcWriteEnable = 1;
+        end
         // This 'cancels' our instructions.
-        pcWriteEnable = ~stall; // Our write enable signal will be the inverse.
 
         // * Forwarding calculation
         // All other hazards can be worked around using forwarding, or by our

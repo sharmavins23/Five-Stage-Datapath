@@ -108,7 +108,7 @@ module Datapath(
     wire [31:0] eb;
     wire [31:0] eimm;
     wire [4:0] ern0;
-    wire sa;
+    wire [4:0] sa;
     assign sa = eimm[10:6];
     wire [31:0] epc8;
     wire [31:0] a;

@@ -16,22 +16,28 @@ module ID_EXE(
     input registerWrite,
     input memoryToRegister,
     input memoryWrite,
+    input jalInstruction,
     input [3:0] aluControl,
     input aluImmediate,
-    input [4:0] destination,
+    input aluInShift,
+    input [31:0] nextPC,
     input [31:0] registerQA,
     input [31:0] registerQB,
     input [31:0] immediateExtended,
+    input [4:0] destination,
     // Outputs
     output reg eregisterWrite,
     output reg ememoryToRegister,
     output reg ememoryWrite,
+    output reg ejalInstruction,
     output reg [3:0] ealuControl,
     output reg ealuImmediate,
-    output reg [4:0] edestination,
+    output reg ealuInShift,
+    output reg [31:0] enextPC,
     output reg [31:0] eregisterQA,
     output reg [31:0] eregisterQB,
-    output reg [31:0] eimmediateExtended
+    output reg [31:0] eimmediateExtended,
+    output reg [4:0] edestination
     );
 
     always @(posedge clock) begin
@@ -39,11 +45,14 @@ module ID_EXE(
         eregisterWrite <= registerWrite;
         ememoryToRegister <= memoryToRegister;
         ememoryWrite <= memoryWrite;
+        ejalInstruction <= jalInstruction;
         ealuControl <= aluControl;
         ealuImmediate <= aluImmediate;
-        edestination <= destination;
+        ealuInShift <= aluInShift;
+        enextPC <= nextPC;
         eregisterQA <= registerQA;
         eregisterQB <= registerQB;
         eimmediateExtended <= immediateExtended;
+        edestination <= destination;
     end
 endmodule

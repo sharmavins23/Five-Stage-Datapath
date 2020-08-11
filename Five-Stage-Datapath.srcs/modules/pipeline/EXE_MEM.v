@@ -15,16 +15,16 @@ module EXE_MEM(
     input eregisterWrite,
     input ememoryToRegister,
     input ememoryWrite,
-    input [4:0] edestination,
     input [31:0] aluOut,
     input [31:0] loadedRegister,
+    input [4:0] edestination,
     // Outputs
     output reg mregisterWrite,
     output reg mmemoryToRegister,
     output reg mmemoryWrite,
-    output reg [4:0] mdestination,
     output reg [31:0] maluOut,
-    output reg [31:0] mloadedRegister
+    output reg [31:0] mloadedRegister,
+    output reg [4:0] mdestination
     );
 
     always @(posedge clock) begin
@@ -32,8 +32,8 @@ module EXE_MEM(
         mregisterWrite <= eregisterWrite;
         mmemoryToRegister <= ememoryToRegister;
         mmemoryWrite <= ememoryWrite;
-        mdestination <= edestination;
         maluOut <= aluOut;
         mloadedRegister <= loadedRegister;
+        mdestination <= edestination;
     end
 endmodule

@@ -14,23 +14,23 @@ module MEM_WB(
     input clock,
     input mregisterWrite,
     input mmemoryToRegister,
-    input [4:0] mdestination,
-    input [31:0] aluOut,
     input [31:0] loadedData,
+    input [31:0] aluOut,
+    input [4:0] mdestination,
     // Outputs
     output reg wregisterWrite,
     output reg wmemoryToRegister,
-    output reg [4:0] wdestination,
+    output reg [31:0] wloadedData,
     output reg [31:0] waluOut,
-    output reg [31:0] wloadedData
+    output reg [4:0] wdestination
     );
 
     always @(posedge clock) begin
         // Assignments in register
         wregisterWrite <= mregisterWrite;
         wmemoryToRegister <= mmemoryToRegister;
-        wdestination <= mdestination;
-        waluOut <= aluOut;
         wloadedData <= loadedData;
+        waluOut <= aluOut;
+        wdestination <= mdestination;
     end
 endmodule

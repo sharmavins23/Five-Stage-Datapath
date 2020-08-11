@@ -134,56 +134,62 @@ module Datapath(
     // Module instantiation ////////////////////////////////////////////////////
 
     // Pipeline
-    ProgramCounter ProgramCounter(clock, nextPC, currentPC);
-    IF_ID IF_ID(clock, loadedInstruction, savedInstruction);
+    ProgramCounter ProgramCounter(clock, wpcir, npc, pc);
+    IF_ID IF_ID(clock, wpcir, pc4, ins, dpc4, inst);
     ID_EXE ID_EXE(
         clock,
-        registerWrite,
-        memoryToRegister,
-        memoryWrite,
-        aluControl,
-        aluImmediate,
-        destination,
-        registerQA,
-        registerQB,
-        immediateExtended,
-        eregisterWrite,
-        ememoryToRegister,
-        ememoryWrite,
-        ealuControl,
-        ealuImmediate,
-        edestination,
-        eregisterQA,
-        eregisterQB,
-        eimmediateExtended
+        wreg,
+        m2reg,
+        wmem,
+        jal,
+        aluc,
+        aluimm,
+        shift,
+        dpc4,
+        da,
+        db,
+        dimm,
+        drn,
+        ewreg,
+        em2reg,
+        ewmem,
+        ejal,
+        ealuc,
+        ealuimm,
+        eshift,
+        epc4,
+        ea,
+        eb,
+        eimm,
+        ern0
     );
     EXE_MEM EXE_MEM(
         clock,
         ewreg,
         em2reg,
         ewmem,
-        edest,
-        aluOut,
-        eqb,
-        mregisterWrite,
-        mmemoryToRegister,
-        mmemoryWrite,
-        mdestination,
-        maluOut,
-        mloadedRegister
+        ealu,
+        eb,
+        ern,
+        mwreg,
+        mm2reg,
+        mwmem,
+        malu,
+        mb,
+        mrn
     );
     MEM_WB MEM_WB(
         clock,
         mwreg,
         mm2reg,
-        mdest,
-        mALU,
-        mdataMemOut,
-        wregisterWrite,
-        wmemoryToRegister,
-        wdestination,
-        waluOut,
-        wloadedData
+        mmo,
+        malu,
+        mrn,
+        wwreg,
+        wm2reg,
+        wmo,
+        walu,
+        wrn
     );
 
     // Instruction Fetch

@@ -19,7 +19,7 @@ module ControlUnit(
     input [5:0] funct,
     input [4:0] rs,
     input [4:0] rt,
-    input [4:0] mRegisterNumber,        // Memory access signals
+    input [4:0] mregisterNumber,        // Memory access signals
     input mmemoryToRegister,
     input mregisterWrite,
     input [4:0] eregisterNumber,        // Execution signals
@@ -267,7 +267,7 @@ module ControlUnit(
             forwardA = 2'b01;
         end 
         // In memory access stage...
-        else if (mregisterWrite & ((mRegisterNumber != 0) & (mregisterNumber == rs)) & ~mmemoryToRegister) begin
+        else if (mregisterWrite & ((mregisterNumber != 0) & (mregisterNumber == rs)) & ~mmemoryToRegister) begin
             // Forward data from MEM to the ALU.
             forwardA = 2'b10;
         end
@@ -287,7 +287,7 @@ module ControlUnit(
             forwardB = 2'b01;
         end 
         // In memory access stage...
-        else if (mregisterWrite & ((mRegisterNumber != 0) & (mregisterNumber == rt)) & ~mmemoryToRegister) begin
+        else if (mregisterWrite & ((mregisterNumber != 0) & (mregisterNumber == rt)) & ~mmemoryToRegister) begin
             // Forward data from MEM to the ALU.
             forwardB = 2'b10;
         end

@@ -196,8 +196,9 @@ module Datapath(
     );
 
     // Instruction Fetch
-    PCAdder PCAdder(currentPC, nextPC);
-    InstructionMemory InstructionMemory(currentPC, loadedInstruction);
+    NextPCMux NextPCMux(pcsrc, pc4, bpc, da, jpcTotal);
+    PCAdder PCAdder(pc, pc4);
+    InstructionMemory InstructionMemory(pc, ins);
 
     // Instruction Decode
     ControlUnit ControlUnit(

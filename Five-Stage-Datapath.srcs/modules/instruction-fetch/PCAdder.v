@@ -16,8 +16,8 @@ module PCAdder(
     );
     
     initial begin
-        // Our program starts at address 100, so at the start we'll pass in 100
-        nextAddress = 100;
+        // Our program starts at address 0, so at the start we'll pass in 0
+        nextAddress = 0;
     end
     
     // Iterate the address up by one word

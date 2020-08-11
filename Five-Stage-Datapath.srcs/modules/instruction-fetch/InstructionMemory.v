@@ -9,7 +9,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-// TODO: Add instructions for final project work
 module InstructionMemory(
     // Inputs
     input [31:0] address,

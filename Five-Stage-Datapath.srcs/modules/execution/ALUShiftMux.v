@@ -12,8 +12,8 @@
 module ALUShiftMux(
     // Inputs
     input isShiftInstruction,
-    input [31:0] aluInA,
     input [4:0] shiftAmt,
+    input [31:0] aluInA,
     // Outputs
     output reg [31:0] aluInput
     );

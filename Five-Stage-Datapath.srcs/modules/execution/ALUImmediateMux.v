@@ -12,14 +12,14 @@
 module ALUImmediateMux(
     // Inputs
     input aluImm,
-    input [31:0] loadedRegister,
     input [31:0] immediate,
+    input [31:0] loadedRegister,
     // Outputs
     output reg [31:0] chosenRegister
     );
 
     always @(*) begin
-        if (aluImm == 1)
+        if (aluImm)
             chosenRegister = immediate;
         else
             chosenRegister = loadedRegister;

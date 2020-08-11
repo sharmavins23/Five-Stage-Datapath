@@ -12,8 +12,8 @@
 module JalALUMux(
     // Inputs
     input isJalInstruction,
-    input [31:0] aluOut,
     input [31:0] jalPC,
+    input [31:0] aluOut,
     // Outputs
     output reg [31:0] chosenValue
     );

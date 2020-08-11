@@ -89,6 +89,7 @@ module ControlUnit(
                     6'b001000: begin // jr: register jump
                         pcSource = 2'b10;
                         aluControl = 4'bxxxx; // Doesn't matter
+                        registerWrite = 0; // NEVER write in jr, will write to $zero
                     end
                     6'b000000: begin // nop: no operation
                         pcSource = 2'b00;
@@ -252,7 +253,7 @@ module ControlUnit(
             end
             6'b000011: begin // jal: jump and link (call)
                 pcSource = 2'b11;
-                registerWrite = 0;
+                registerWrite = 1; // JAL should write to $ra
                 memoryToRegister = 1'bx;
                 memoryWrite = 0;
                 jalInstruction = 1;

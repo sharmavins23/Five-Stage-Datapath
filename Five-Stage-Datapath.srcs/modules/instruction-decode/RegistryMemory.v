@@ -13,11 +13,11 @@
 module RegistryMemory(
     // Inputs
     input clock,
+    input [4:0] rna,
+    input [4:0] rnb,
     input writeEnable,
-    input [4:0] rs,
-    input [4:0] rt,
-    input [4:0] writeDestination,
     input [31:0] writeData,
+    input [4:0] writeDestination,
     // Outputs
     output reg [31:0] registerQA,
     output reg [31:0] registerQB
@@ -35,9 +35,9 @@ module RegistryMemory(
     end
 
     always @(negedge clock) begin
-        // Sync inputs with outputs for now
-        registerQA <= registry[rs];
-        registerQB <= registry[rt];
+        // Sync inputs with outputs
+        registerQA <= registry[rna];
+        registerQB <= registry[rnb];
 
         // Write-back functionality with write-enable
         if (writeEnable) begin

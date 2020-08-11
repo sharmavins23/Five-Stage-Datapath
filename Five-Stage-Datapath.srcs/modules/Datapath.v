@@ -13,33 +13,33 @@ module Datapath(
     // Inputs
     input clock,
     // Outputs
-    output [31:0] currentPC, // Program Counter
-    output [31:0] savedInstruction, // Instruction Fetch/Instruction Decode
+    output reg [31:0] currentPC, // Program Counter
+    output reg [31:0] savedInstruction, // Instruction Fetch/Instruction Decode
     output stall,
-    output eregisterWrite, // Instruction Decode/Execution
-    output ememoryToRegister,
-    output ememoryWrite,
-    output ejalInstruction,
-    output [3:0] ealuControl,
-    output ealuImmediate,
-    output eShiftRegister,
-    output [31:0] enextPC,
-    output [31:0] eregisterQA,
-    output [31:0] eregisterQB,
-    output [31:0] eimmediateExtended,
-    output [4:0] edestination,
-    output mregisterWrite, // Execution/Memory Access
-    output mmemoryToRegister,
-    output mmemoryWrite,
-    output [31:0] maluOut,
-    output [31:0] mloadedRegister,
-    output [4:0] mdestination,
-    output wregisterWrite, // Memory Access/Write Back
-    output wmemoryToRegister,
-    output [31:0] wloadedData,
-    output [31:0] waluOut,
-    output [4:0] wdestination,
-    output [31:0] wDataWritten // Write Back feedback signal
+    output reg eregisterWrite, // Instruction Decode/Execution
+    output reg ememoryToRegister,
+    output reg ememoryWrite,
+    output reg ejalInstruction,
+    output reg [3:0] ealuControl,
+    output reg ealuImmediate,
+    output reg eShiftRegister,
+    output reg [31:0] enextPC,
+    output reg [31:0] eregisterQA,
+    output reg [31:0] eregisterQB,
+    output reg [31:0] eimmediateExtended,
+    output reg [4:0] edestination,
+    output reg mregisterWrite, // Execution/Memory Access
+    output reg mmemoryToRegister,
+    output reg mmemoryWrite,
+    output reg [31:0] maluOut,
+    output reg [31:0] mloadedRegister,
+    output reg [4:0] mdestination,
+    output reg wregisterWrite, // Memory Access/Write Back
+    output reg wmemoryToRegister,
+    output reg [31:0] wloadedData,
+    output reg [31:0] waluOut,
+    output reg [4:0] wdestination,
+    output reg [31:0] wDataWritten // Write Back feedback signal
     );
     
     // Wire instantiation //////////////////////////////////////////////////////
@@ -202,27 +202,66 @@ module Datapath(
 
     // Instruction Decode
     ControlUnit ControlUnit(
-        opCode,
-        funct,
-        registerWrite,
-        memoryToRegister,
-        memoryWrite,
-        aluControl,
-        aluImmediate,
-        destinationRegisterRT
-        );
-    DestinationMux DestinationMux(rd, rt, destinationRegisterRT, destination);
-    RegistryMemory RegistryMemory(
-        clock,
-        wwreg,
+        op,
+        func,
         rs,
         rt,
-        wdest,
-        writeData,
-        registerQA,
-        registerQB
-        );
-    SignExtension SignExtension(immediate, immediateExtended);
+        mrn,
+        mm2reg,
+        mwreg,
+        ern,
+        em2reg,
+        ewreg,
+        rsrtequ,
+        stall,
+        pcsrc,
+        wpcir,
+        wreg,
+        m2reg,
+        wmem,
+        jal,
+        aluc,
+        aluimm,
+        shift,
+        regrt,
+        sext,
+        fwdb,
+        fwda
+    );
+    JumpAddressShift JumpAddressShift(addr, jpc);
+    BranchAddressShift BranchAddressShift(imm, bimm);
+    BranchPCAdder BranchPCAdder(dpc4, bimm, bpc);
+    RegistryMemory RegistryMemory(
+        clock,
+        rs,
+        rt,
+        wwreg,
+        wdi,
+        wrn,
+        qa,
+        qb
+    );
+    ForwardMux ForwardMuxA(
+        fwda,
+        qa,
+        ealu,
+        malu,
+        mmo
+    );
+    ForwardMux ForwardMuxB(
+        fwdb,
+        qb,
+        ealu,
+        malu,
+        mmo
+    );
+    ALUInEqualCheck ALUInEqualCheck(
+        da,
+        db,
+        rsrtequ
+    );
+    SignExtension SignExtension(imm, sext, dimm);
+    DestinationMux DestinationMux(regrt, rd, rt, drn);
 
     // Execution
     ALUImmediateMux ALUImmediateMux(ealuimm, eqb, eimm, chosenRegister);

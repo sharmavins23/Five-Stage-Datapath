@@ -11,9 +11,9 @@
 
 module DestinationMux(
     // Inputs
+    input destinationRegisterRT,
     input [4:0] rd,
     input [4:0] rt,
-    input destinationRegisterRT,
     // Outputs
     output reg [4:0] destination
     );

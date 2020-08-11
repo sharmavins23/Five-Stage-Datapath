@@ -118,6 +118,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 1;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b001100: begin // andi: immediate AND
                 pcSource = 2'b00;
@@ -130,6 +132,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 0;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b001101: begin // ori: immediate OR
                 pcSource = 2'b00;
@@ -142,6 +146,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 0;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b001110: begin // xori: immediate XOR
                 pcSource = 2'b00;
@@ -154,6 +160,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 0;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b100011: begin // lw: load memory word
                 pcSource = 2'b00;
@@ -166,6 +174,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 1;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b101011: begin // sw: store memory word
                 pcSource = 2'b00;
@@ -178,6 +188,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b000100: begin // beq: branch on equal
                 if (branchEqualityCheck) pcSource = 2'b01;
@@ -191,6 +203,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b000101: begin // bne: branch on not equal
                 if (~branchEqualityCheck) pcSource = 2'b01;
@@ -204,11 +218,13 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             6'b001111: begin // lui: load upper immediate
                 pcSource = 2'b00;
                 registerWrite = 1;
-                memoryToRegister = 0;
+                memoryToRegister = 1; // In textbook, this is inaccurate
                 memoryWrite = 0;
                 jalInstruction = 0;
                 aluControl = 4'bx110; // LUI
@@ -216,6 +232,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1;
                 signedExtension = 0;
+                isRSUsed = 1;
+                isRTUsed = 1;
             end
             // j-format ////////////////////////////////////////////////////////
             6'b000010: begin // j: jump
@@ -229,6 +247,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1'bx;
+                isRSUsed = 0;
+                isRTUsed = 0;
             end
             6'b000011: begin // jal: jump and link (call)
                 pcSource = 2'b11;
@@ -241,6 +261,8 @@ module ControlUnit(
                 shiftInstruction = 0;
                 destinationRegisterRT = 1'bx;
                 signedExtension = 1'bx;
+                isRSUsed = 0;
+                isRTUsed = 0;
             end
         endcase
 
@@ -248,6 +270,7 @@ module ControlUnit(
         // A stall occurs when an instruction uses data loaded from a previous
         //  lw instruction. We can check whether a load word instruction exists
         //  if it writes data to a register and loads that data from memory.
+        // An lui instruction should trigger a stall as well.
 
         // In execution, if load word instruction writes to the current register
         //  rs or rt...

@@ -32,9 +32,9 @@ class binToHexConverter:
             elif itr % 8 == 0:
                 print(" ", end="")
 
-    # Prints out the corresponding verilog code for the hex input
+    # Prints out the corresponding verilog code for the hex input for ROM data
     @staticmethod
-    def verilogCode(data):
+    def verilogCodeRom(data):
         # Remove leading and trailing newlines
         data = data.strip("\n")
 
@@ -66,9 +66,43 @@ class binToHexConverter:
 
             print("")  # Newline
 
+    # Prints out the corresponding verilog code for the hex input for RAM data
+    @staticmethod
+    def verilogCodeRam(data):
+        # Remove leading and trailing newlines
+        data = data.strip("\n")
+
+        # Split data on newlines
+        data = data.splitlines()
+
+        # Calculate binary for each instruction
+        binData = [binToHexConverter.hexToBin(inst, 32) for inst in data]
+
+        itr = 0
+        # Iterate through each instruction in both binary and hex
+        for instruction, hexInst in zip(binData, data):
+            # Split instruction into byte portions
+            # Also not gonna explain this one either
+            # Credit to https://stackoverflow.com/a/22571558/13821979
+            byteset = list(map("".join, zip(*[iter(instruction)]*8)))
+
+            # Loop through byte portions
+            for byte in byteset:
+                addr = str(itr).zfill(3)  # Pad itr value to 3 spaces
+                print(f"dataMemory[{addr}] = 8'b{byte};", end="")
+
+                if itr % 4 == 0:
+                    print(f" // 0x{hexInst}", end="")
+
+                itr += 1
+
+                print("")  # end the line
+
+            print("")  # Newline
+
 
 # Instruction Memory data for CMPEN331's final project
-projectData = """
+romData = """
 3c010000
 34240050
 0c00001b
@@ -106,4 +140,12 @@ ac820000
 00081000
 """
 
-binToHexConverter.verilogCode(projectData)
+ramData = """
+000000a3
+00000027
+00000079
+00000115
+"""
+
+# binToHexConverter.verilogCodeRom(romData)
+binToHexConverter.verilogCodeRam(ramData)

@@ -20,23 +20,24 @@ module ArithmeticLogicUnit(
     always @(*) begin
         // ALU control bits specify the function
         case(aluControl)
-            4'b0000: // AND
-                out = a & b;
-            4'b0001: // OR
-                out = a | b;
-            4'b0010: // add
+            4'bx000: // ADD
                 out = a + b;
-            4'b0110: // subtract
+            4'bx100: // SUB
                 out = a - b;
-            4'b0111: begin // set on less than
-                if (a < b)
-                    out = 1;
-                else
-                    out = 0;
-            end
-            4'b1100: // NOR
-                out = ~(a | b);
-
+            4'bx001: // AND
+                out = a & b;
+            4'bx101: // OR
+                out = a | b;
+            4'bx010: // XOR
+                out = a ^ b;
+            4'bx110: // LUI
+                out = {b[15:0], 16'b0};
+            4'b0011: // SLL
+                out = b << a;
+            4'b0111: // SRL
+                out = b >> a;
+            4'b1111: // SRA
+                out = b >>> a;
         endcase
     end
 endmodule

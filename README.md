@@ -87,6 +87,9 @@ Here are some helpful links that are useful to read up alongside the project.
     binary and hexadecimal instructions.
 -   [MIPS Instruction Reference](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html):
     This is a reference of all MIPS instructions and their meanings/syntax.
+-   [Computer Principles and Design in Verilog HDL](https://www.amazon.com/Computer-Principles-Design-Verilog-HDL/dp/1118841093/):
+    This is the textbook from which the original circuit design comes from. I
+    mainly used this to get the control signals for the project.
 
 # License TL;DR
 

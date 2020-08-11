@@ -276,7 +276,9 @@ module Datapath(
     ArithmeticLogicUnit ArithmeticLogicUnit(ealuc, eqa, chosenRegister, aluOut);
 
     // Memory Access
-    DataMemory DataMemory(mwmem, mALU, mdataIn, mdataMemOut);
+    DataMemory DataMemory(mwmem, malu, mb, mmo);
+
+
 
     // Write Back
     RegWriteMux RegWriteMux(wm2reg, wAlu, wData, wDataWritten);

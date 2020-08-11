@@ -24,57 +24,26 @@ module DataMemory(
 
     initial begin
         // Manually loading our data memory
+        // Verilog          Binary          Hex
+        dataMemory[080] = 8'b00000000; // 0x000000a3
+        dataMemory[081] = 8'b00000000;
+        dataMemory[082] = 8'b00000000; // Byte 080
+        dataMemory[083] = 8'b10100011; // Word 020
 
-        // A00000AA
-        dataMemory[0] = 8'hA0;
-        dataMemory[1] = 8'h00;
-        dataMemory[2] = 8'h00;
-        dataMemory[3] = 8'hAA;
-        // 10000011
-        dataMemory[4] = 8'h10;
-        dataMemory[5] = 8'h00;
-        dataMemory[6] = 8'h00;
-        dataMemory[7] = 8'h11;
-        // 20000022
-        dataMemory[8] = 8'h20;
-        dataMemory[9] = 8'h00;
-        dataMemory[10] = 8'h00;
-        dataMemory[11] = 8'h22;
-        // 30000033
-        dataMemory[12] = 8'h30;
-        dataMemory[13] = 8'h00;
-        dataMemory[14] = 8'h00;
-        dataMemory[15] = 8'h33;
-        // 40000044
-        dataMemory[16] = 8'h40;
-        dataMemory[17] = 8'h00;
-        dataMemory[18] = 8'h00;
-        dataMemory[19] = 8'h44;
-        // 50000055
-        dataMemory[20] = 8'h50;
-        dataMemory[21] = 8'h00;
-        dataMemory[22] = 8'h00;
-        dataMemory[23] = 8'h55;
-        // 60000066
-        dataMemory[24] = 8'h60;
-        dataMemory[25] = 8'h00;
-        dataMemory[26] = 8'h00;
-        dataMemory[27] = 8'h66;
-        // 70000077
-        dataMemory[28] = 8'h70;
-        dataMemory[29] = 8'h00;
-        dataMemory[30] = 8'h00;
-        dataMemory[31] = 8'h77;
-        // 80000088
-        dataMemory[32] = 8'h80;
-        dataMemory[33] = 8'h00;
-        dataMemory[34] = 8'h00;
-        dataMemory[35] = 8'h88;
-        // 90000099
-        dataMemory[36] = 8'h90;
-        dataMemory[37] = 8'h00;
-        dataMemory[38] = 8'h00;
-        dataMemory[39] = 8'h99;
+        dataMemory[084] = 8'b00000000; // 0x00000027
+        dataMemory[085] = 8'b00000000;
+        dataMemory[086] = 8'b00000000; // Byte 084
+        dataMemory[087] = 8'b00100111; // Word 021
+
+        dataMemory[088] = 8'b00000000; // 0x00000079
+        dataMemory[089] = 8'b00000000;
+        dataMemory[090] = 8'b00000000; // Byte 088
+        dataMemory[091] = 8'b01111001; // Word 022
+
+        dataMemory[092] = 8'b00000000; // 0x00000115
+        dataMemory[093] = 8'b00000000;
+        dataMemory[094] = 8'b00000001; // Byte 092
+        dataMemory[095] = 8'b00010101; // Word 033
     end
 
     always @(*) begin

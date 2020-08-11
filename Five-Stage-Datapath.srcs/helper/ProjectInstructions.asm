@@ -9,24 +9,24 @@ main:
 dslot1:
 		addi		$a1, $zero, 4
 return:
-		sw			$v0, 0($a0)
-		lw			$t1, 0($a0)
-		sub			$t0, $t1, $a0
+		sw  		$v0, 0($a0)
+		lw  		$t1, 0($a0)
+		sub 		$t0, $t1, $a0
 		addi		$a1, $zero, 3
 loop2:
 		addi    	$a1, $a1, -1
-		ori	    	$t0, $a1, 0xffff 		# Immediate value: 65535
+		ori     	$t0, $a1, 0xffff 		# Immediate value: 65535
 		xori    	$t0, $t0, 0x5555 		# Immediate value: 21845
 		addi    	$t1, $zero, -1
 		andi    	$t2, $t1, 0xffff 		# Immediate value: 65535
-		or	    	$a2, $t2, $t1
-		xor	    	$t0, $t2, $t1
+		or      	$a2, $t2, $t1
+		xor     	$t0, $t2, $t1
 		and 		$a3, $t2, $a2
-		beq	    	$a1, $zero, shift
+		beq     	$a1, $zero, shift
 	
 dslot2:
 		nop
-		j			loop2
+		j   		loop2
 
 dslot3:
 		nop
@@ -38,14 +38,14 @@ shift:
 		srl 		$t0, $t0, 15
 	
 finish:
-		j 			finish
+		j   		finish
 	
 dslot4:
 		nop
 sum:
 		add 		$t0, $zero, $zero
 loop:
-		lw 			$t1, 0($a0)
+		lw  		$t1, 0($a0)
 stall:
 		add 		$t0, $t0, $t1
 		addi 		$a1, $a1, -1

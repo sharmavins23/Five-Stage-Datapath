@@ -271,10 +271,6 @@ module Datapath(
     JalALUMux JalALUMux(ejal, epc8, alu, ealu);
     JalDestSwitch JalDestSwitch(ejal, ern0, ern);
 
-    // Execution
-    ALUImmediateMux ALUImmediateMux(ealuimm, eqb, eimm, chosenRegister);
-    ArithmeticLogicUnit ArithmeticLogicUnit(ealuc, eqa, chosenRegister, aluOut);
-
     // Memory Access
     DataMemory DataMemory(mwmem, malu, mb, mmo);
 

@@ -21,8 +21,14 @@ module DataMemory(
 
     // Data memory file, 8 bits wide, can hold 32 memory values
     reg [7:0] dataMemory [0:127];
+    // Iterator for clearing data memory
+    integer i;
 
     initial begin
+        // Clearing our data memory on startup
+        for (i = 0; i < 128; i = i+1)
+            dataMemory[i] = 8'b00000000; // Empty byte
+
         // Manually loading our data memory
         // Verilog          Binary          Hex
         dataMemory[080] = 8'b00000000; // 0x000000a3

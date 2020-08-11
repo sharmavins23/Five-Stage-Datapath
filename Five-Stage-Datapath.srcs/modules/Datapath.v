@@ -19,23 +19,26 @@ module Datapath(
     output eregisterWrite, // Instruction Decode/Execution
     output ememoryToRegister,
     output ememoryWrite,
+    output ejalInstruction,
     output [3:0] ealuControl,
     output ealuImmediate,
-    output [4:0] edestination,
+    output eShiftRegister,
+    output [31:0] enextPC,
     output [31:0] eregisterQA,
     output [31:0] eregisterQB,
     output [31:0] eimmediateExtended,
+    output [4:0] edestination,
     output mregisterWrite, // Execution/Memory Access
     output mmemoryToRegister,
     output mmemoryWrite,
-    output [4:0] mdestination,
     output [31:0] maluOut,
     output [31:0] mloadedRegister,
+    output [4:0] mdestination,
     output wregisterWrite, // Memory Access/Write Back
     output wmemoryToRegister,
-    output [4:0] wdestination,
-    output [31:0] waluOut,
     output [31:0] wloadedData,
+    output [31:0] waluOut,
+    output [4:0] wdestination,
     output [31:0] wDataWritten // Write Back feedback signal
     );
     
@@ -229,4 +232,35 @@ module Datapath(
 
     // Write Back
     RegWriteMux RegWriteMux(wm2reg, wAlu, wData, wDataWritten);
+
+    always @(*) begin
+        // Output assignments
+        currentPC = pc;
+        savedInstruction = inst;
+        // Stall is already assigned
+        eregisterWrite = ewreg;
+        ememoryToRegister = em2reg;
+        ememoryWrite = ewmem;
+        ejalInstruction = ejal;
+        ealuControl = ealuc;
+        ealuImmediate = ealuimm;
+        eShiftRegister = eshift;
+        enextPC = epc4;
+        eregisterQA = ea;
+        eregisterQB = eb;
+        eimmediateExtended = eimm;
+        edestination = ern0;
+        mregisterWrite = mwreg;
+        mmemoryToRegister = mm2reg;
+        mmemoryWrite = mwmem;
+        maluOut = malu;
+        mloadedRegister = mmo;
+        mdestination = mrn;
+        wregisterWrite = wwreg;
+        wmemoryToRegister = wm2reg;
+        wloadedData = wmo;
+        waluOut = walu;
+        wdestination = wrn;
+        wDataWritten = wdi;
+    end
 endmodule

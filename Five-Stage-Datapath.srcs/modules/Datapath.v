@@ -264,7 +264,7 @@ module Datapath(
     DestinationMux DestinationMux(regrt, rd, rt, drn);
 
     // Execution
-    JALPCAdder JALPCAdder(epc4, epc8);
+    JalPCAdder JalPCAdder(epc4, epc8);
     ALUShiftMux ALUShiftMux(eshift, sa, ea, a);
     ALUImmediateMux ALUImmediateMux(ealuimm, eimm, eb, b);
     ArithmeticLogicUnit ArithmeticLogicUnit(ealuc, a, b, alu);

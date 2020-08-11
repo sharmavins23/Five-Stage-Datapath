@@ -11,7 +11,7 @@
 //              signals in order to prevent hazards in instruction execution.
 ////////////////////////////////////////////////////////////////////////////////
 
-// RegisterWrite and memoryWrite signals are redundant, and could be simplified.
+// RegisterWrite and memoryWrite signals are semi redundant, and might be simplified?
 // Opcode could also be passed through pipelines to simplify stall calculation.
 module ControlUnit(
     // Inputs
@@ -139,6 +139,16 @@ module ControlUnit(
                 signedExtension = 0;
             end
             6'b001110: begin // xori: immediate XOR
+                pcSource = 2'b00;
+                registerWrite = 1;
+                memoryToRegister = 0;
+                memoryWrite = 0;
+                jalInstruction = 0;
+                aluControl = 4'bx010; // XOR
+                aluImmediate = 1;
+                shiftInstruction = 0;
+                destinationRegisterRT = 1;
+                signedExtension = 0;
             end
             6'b100011: begin // lw: load memory word
                 pcSource = 2'b00;

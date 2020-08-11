@@ -224,7 +224,7 @@ module ControlUnit(
             6'b001111: begin // lui: load upper immediate
                 pcSource = 2'b00;
                 registerWrite = 1;
-                memoryToRegister = 1; // In textbook, this is inaccurate
+                memoryToRegister = 0;
                 memoryWrite = 0;
                 jalInstruction = 0;
                 aluControl = 4'bx110; // LUI

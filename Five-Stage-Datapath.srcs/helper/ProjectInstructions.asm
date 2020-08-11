@@ -2,12 +2,12 @@
 # With the MARS MIPS simulator, one can step through the individual instructions and see how they function.
 
 main:	
-		lui			$at, 0
-		ori			$a0, $at, 80
-		jal			sum
+		lui 		$at, 0
+		ori 		$a0, $at, 80
+		jal 		sum
 	
 dslot1:
-		addi		$a1, $zero, 4
+		addi 		$a1, $zero, 4
 return:
 		sw  		$v0, 0($a0)
 		lw  		$t1, 0($a0)

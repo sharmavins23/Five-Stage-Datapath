@@ -90,56 +90,19 @@ module Testbench();
         enable = 1; // Enable signal on clock
 
         #5; // Positive edge of the first clock cycle //////////////////////////
-            // First instruction enters Instruction Fetch
+        // There are 35 instructions written into the instruction memory (ROM).
 
-        #10; // Positive edge of the second clock cycle ////////////////////////
-            // First instruction enters Instruction Decode
-            // Second instruction enters Instruction Fetch
+        // If all instructions were running without stalls or hazards, there
+        //  would be 4+n clock cycles, where n is the number of instructions.
+        // However, each instruction can possibly incur (at most) one stall.
+        // The absolute maximum number of clock cycles for this datapath to 
+        //  execute all programmed instructions is 3+2n.
 
-        #10; // Positive edge of the third clock cycle /////////////////////////
-            // First instruction enters Execution
-            // Second instruction enters Instruction Decode
-            // Third instruction enters Instruction Fetch
+        // In this program's case, the absolute maximum number of clock cycles
+        //  to execute the program would be 73.
+        #730;
 
-        #10; // Positive edge of the fourth clock cycle ////////////////////////
-            // First instruction enters Memory Access
-            // Second instruction enters Execution
-            // Third instruction enters Instruction Decode
-            // Fourth instruction enters Instruction Fetch
-
-        #10; // Positive edge of the fifth clock cycle /////////////////////////
-            // First instruction enters Write Back
-            // Second instruction enters Memory Access
-            // Third instruction enters Execution
-            // Fourth instruction enters Instruction Decode
-            // Fifth instruction enters Instruction Fetch
-
-        #10; // Positive edge of the sixth clock cycle /////////////////////////
-            // First instruction has completed.
-            // Second instruction enters Write Back
-            // Third instruction enters Memory Access
-            // Fourth instruction enters Execution
-            // Fifth instruction enters Instruction Decode
-        
-        #10; // Positive edge of the seventh clock cycle ///////////////////////
-            // Second instruction has completed.
-            // Third instruction enters Write Back
-            // Fourth instruction enters Memory Access
-            // Fifth instruction enters Execution
-
-        #10; // Positive edge of the eighth clock cycle ////////////////////////
-            // Third instruction has completed.
-            // Fourth instruction enters Write Back
-            // Fifth instruction enters Memory Access
-
-        #10; // Positive edge of the ninth clock cycle /////////////////////////
-            // Fourth instruction has completed.
-            // Fifth instruction enters Write Back
-        
-        #10; // Positive edge of the tenth clock cycle /////////////////////////
-            // All instructions have completed.
-        
-        #5;
+        #5; // Down to negative edge
         enable = 0; // Stop clock motion
     end
 endmodule

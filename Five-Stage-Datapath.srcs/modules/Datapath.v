@@ -15,6 +15,7 @@ module Datapath(
     // Outputs
     output [31:0] currentPC, // Program Counter
     output [31:0] savedInstruction, // Instruction Fetch/Instruction Decode
+    output stall,
     output eregisterWrite, // Instruction Decode/Execution
     output ememoryToRegister,
     output ememoryWrite,
@@ -42,88 +43,93 @@ module Datapath(
     // Wires that are assigned are taking the values from the output of the
     //  datapath module, or the signals output from the pipeline registers.
 
-    // Pipeline
-    wire [31:0] nextPC;
-    wire [31:0] immediateExtended;
-    wire registerWrite;
-    wire memoryToRegister;
-    wire memoryWrite;
-    wire [3:0] aluControl;
-    wire aluImmediate;
-    wire destinationRegisterRT;
-    wire [31:0] registerQA;
-    wire [31:0] registerQB;
-    wire [4:0] destination;
-
     // Instruction Fetch
-    wire [31:0] loadedInstruction;
+    wire [31:0] npc;
+    wire [1:0] pcsrc;
+    wire wpcir;
+    wire [31:0] pc;
+    wire [31:0] pc4;
+    wire [31:0] ins;
 
     // Instruction Decode
-    wire [5:0] opCode;
-    assign opCode = savedInstruction[31:26];
-    wire [5:0] funct;
-    assign funct = savedInstruction[5:0];
+    wire [31:0] inst;
+    wire [5:0] op;
+    assign op = inst[31:26];
+    wire [5:0] func;
+    assign func = inst[5:0];
     wire [4:0] rs;
-    assign rs = savedInstruction[25:21];
+    assign rs = inst[25:21];
     wire [4:0] rt;
-    assign rt = savedInstruction[20:16];
+    assign rt = inst[20:16];
+    wire [25:0] addr;
+    assign addr = inst[25:0];
+    wire [15:0] imm;
+    assign imm = inst[15:0];
     wire [4:0] rd;
-    assign rd = savedInstruction[15:11];
-    wire [4:0] shamt;
-    assign shamt = savedInstruction[10:6];
-    wire [15:0] immediate;
-    assign immediate = savedInstruction[15:0];
+    assign rd = inst[15:11];
+    wire wreg;
+    wire m2reg;
+    wire wmem;
+    wire jal;
+    wire [3:0] aluc;
+    wire aluimm;
+    wire shift;
+    wire regrt;
+    wire rsrtequ;
+    wire sext;
+    wire [1:0] fwdb;
+    wire [1:0] fwda;
+    wire [27:0] jpc;
+    wire [31:0] dpc4;
+    wire [17:0] bimm;
+    wire [31:0] bpc;
+    wire [31:0] qa;
+    wire [31:0] qb;
+    wire [31:0] jpcTotal;
+    assign jpcTotal = {dpc4[31:28], jpc};
+    wire [31:0] da;
+    wire [31:0] db;
+    wire [31:0] dimm;
+    wire [4:0] drn;
 
     // Execution
     wire ewreg;
-    assign ewreg = eregisterWrite;
     wire em2reg;
-    assign em2reg = ememoryToRegister;
     wire ewmem;
-    assign ewmem = ememoryWrite;
+    wire ejal;
     wire [3:0] ealuc;
-    assign ealuc = ealuControl;
     wire ealuimm;
-    assign ealuimm = ealuImmediate;
-    wire [4:0] edest;
-    assign edest = edestination;
-    wire [31:0] eqa;
-    assign eqa = eregisterQA;
-    wire [31:0] eqb;
-    assign eqb = eregisterQB;
+    wire eshift;
+    wire [31:0] epc4;
+    wire [31:0] ea;
+    wire [31:0] eb;
     wire [31:0] eimm;
-    assign eimm = eimmediateExtended;
-    wire [31:0] chosenRegister;
-    wire [31:0] aluOut;
+    wire [4:0] ern0;
+    wire sa;
+    assign sa = eimm[10:6];
+    wire [31:0] epc8;
+    wire [31:0] a;
+    wire [31:0] b;
+    wire [31:0] alu;
+    wire [31:0] ealu;
+    wire [4:0] ern;
 
     // Memory Access
     wire mwreg;
-    assign mwreg = mregisterWrite;
     wire mm2reg;
-    assign mm2reg = mmemoryToRegister;
     wire mwmem;
-    assign mwmem = mmemoryWrite;
-    wire [4:0] mdest;
-    assign mdest = mdestination;
-    wire [31:0] mALU;
-    assign mALU = maluOut;
-    wire [31:0] mdataIn;
-    assign mdataIn = mloadedRegister;
-    wire [31:0] mdataMemOut;
+    wire [31:0] malu;
+    wire [31:0] mb;
+    wire [4:0] mrn;
+    wire [31:0] mmo;
 
     // Write Back
     wire wwreg;
-    assign wwreg = wregisterWrite;
     wire wm2reg;
-    assign wm2reg = wmemoryToRegister;
-    wire [4:0] wdest;
-    assign wdest = wdestination;
-    wire [31:0] wAlu;
-    assign wAlu = waluOut;
-    wire [31:0] wData;
-    assign wData = wloadedData;
-    wire [31:0] writeData;
-    assign writeData = wDataWritten;
+    wire [31:0] wmo;
+    wire [31:0] walu;
+    wire [4:0] wrn;
+    wire [31:0] wdi;
 
     // Module instantiation ////////////////////////////////////////////////////
 

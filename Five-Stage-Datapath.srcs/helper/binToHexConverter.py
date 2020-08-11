@@ -14,6 +14,10 @@ class binToHexConverter:
     # Prints out binary output cleanly
     @staticmethod
     def convertPrint(data):
+        # Sanitize data input with spaces and newlines
+        data = data.replace("\n", "")
+        data = data.replace(" ", "")
+        
         bits = len(data)*4 # Calculate amt of bits
         binData = binToHexConverter.hexToBin(data, bits) # Get binary data
         

@@ -22,6 +22,8 @@ module InstructionMemory(
     
     initial begin
         // Manually loading our program instructions
+
+        
         
         // lw $v0, 00($at)
         // 100011 00001 00010 0000000000000000

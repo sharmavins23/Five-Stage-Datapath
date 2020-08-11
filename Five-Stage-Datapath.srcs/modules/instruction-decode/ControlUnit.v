@@ -90,7 +90,7 @@ module ControlUnit(
                         pcSource = 2'b10;
                         aluControl = 4'bxxxx; // Doesn't matter
                     end
-                    6'b000000: begin // noop: no operation
+                    6'b000000: begin // nop: no operation
                         pcSource = 2'b00;
                         registerWrite = 0;
                         memoryToRegister = 1'bx;

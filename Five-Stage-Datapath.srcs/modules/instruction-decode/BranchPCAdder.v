@@ -17,6 +17,13 @@ module BranchPCAdder(
     output reg [31:0] branchAddress
     );
 
-    // Add the PC and offset to get the proper address
-    always @(*) branchAddress = programCounter + branchOffset;
+    // Used for sign extension of offset
+    reg [31:0] extendedBranchOffset;
+    
+    always @(*) begin
+        extendedBranchOffset = {{14{branchOffset[17]}}, branchOffset};
+
+        // Add the PC and extended offset to get the proper address
+        branchAddress = programCounter + extendedBranchOffset;
+    end
 endmodule

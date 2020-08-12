@@ -34,14 +34,16 @@ module RegistryMemory(
         end
     end
 
-    always @(negedge clock) begin
-        // Sync inputs with outputs
-        registerQA <= registry[rna];
-        registerQB <= registry[rnb];
-
+    always @(posedge clock) begin
         // Write-back functionality with write-enable
         if (writeEnable) begin
             registry[writeDestination] <= writeData;
         end
+    end
+
+    always @(negedge clock) begin
+        // Sync inputs with outputs
+        registerQA <= registry[rna];
+        registerQB <= registry[rnb];
     end
 endmodule

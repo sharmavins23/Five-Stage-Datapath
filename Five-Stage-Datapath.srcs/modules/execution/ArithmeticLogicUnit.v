@@ -31,7 +31,7 @@ module ArithmeticLogicUnit(
             4'bx010: // XOR
                 out = a ^ b;
             4'bx110: // LUI
-                out = {b[15:0], 16'b0};
+                out = b << 16;
             4'b0011: // SLL
                 out = b << a;
             4'b0111: // SRL

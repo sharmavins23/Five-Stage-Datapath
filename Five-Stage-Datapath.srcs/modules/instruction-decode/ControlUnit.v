@@ -72,24 +72,33 @@ module ControlUnit(
                 case(funct)
                     6'b100000: // add: register add
                         aluControl = 4'bx000;
+                        shiftInstruction = 0;
                     6'b100010: // sub: register subtract
                         aluControl = 4'bx100;
+                        shiftInstruction = 0;
                     6'b100100: // and: register AND
                         aluControl = 4'bx001;
+                        shiftInstruction = 0;
                     6'b100101: // or: register OR
                         aluControl = 4'bx101;
+                        shiftInstruction = 0;
                     6'b100110: // xor: register XOR
                         aluControl = 4'bx010;
+                        shiftInstruction = 0;
                     6'b000000: // sll: shift left
                         aluControl = 4'b0011;
+                        shiftInstruction = 1;
                     6'b000010: // srl: logical shift right
                         aluControl = 4'b0111;
+                        shiftInstruction = 1;
                     6'b000011: // sra: arithmetic shift right
                         aluControl = 4'b1111;
+                        shiftInstruction = 1;
                     6'b001000: begin // jr: register jump
                         pcSource = 2'b10;
                         aluControl = 4'bxxxx; // Doesn't matter
                         registerWrite = 0; // NEVER write in jr, will write to $zero
+                        shiftInstruction = 0;
                     end
                     6'b000000: begin // nop: no operation
                         pcSource = 2'b00;

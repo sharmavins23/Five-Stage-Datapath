@@ -70,30 +70,38 @@ module ControlUnit(
 
                 // ALU control is determined based on the funct code.
                 case(funct)
-                    6'b100000: // add: register add
+                    6'b100000: begin // add: register add
                         aluControl = 4'bx000;
                         shiftInstruction = 0;
-                    6'b100010: // sub: register subtract
+                    end
+                    6'b100010: begin // sub: register subtract
                         aluControl = 4'bx100;
                         shiftInstruction = 0;
-                    6'b100100: // and: register AND
+                    end
+                    6'b100100: begin // and: register AND
                         aluControl = 4'bx001;
                         shiftInstruction = 0;
-                    6'b100101: // or: register OR
+                    end
+                    6'b100101: begin // or: register OR
                         aluControl = 4'bx101;
                         shiftInstruction = 0;
-                    6'b100110: // xor: register XOR
+                    end
+                    6'b100110: begin // xor: register XOR
                         aluControl = 4'bx010;
                         shiftInstruction = 0;
-                    6'b000000: // sll: shift left
+                    end
+                    6'b000000: begin // sll: shift left
                         aluControl = 4'b0011;
                         shiftInstruction = 1;
-                    6'b000010: // srl: logical shift right
+                    end
+                    6'b000010: begin // srl: logical shift right
                         aluControl = 4'b0111;
                         shiftInstruction = 1;
-                    6'b000011: // sra: arithmetic shift right
+                    end
+                    6'b000011: begin // sra: arithmetic shift right
                         aluControl = 4'b1111;
                         shiftInstruction = 1;
+                    end
                     6'b001000: begin // jr: register jump
                         pcSource = 2'b10;
                         aluControl = 4'bxxxx; // Doesn't matter

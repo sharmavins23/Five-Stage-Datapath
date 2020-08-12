@@ -28,19 +28,19 @@ module ControlUnit(
     input branchEqualityCheck,
     // Outputs
     output reg stall,                   // Whether there currently is a lw data dependency stall
-    output reg [1:0] pcSource,          // NextPCMux selector
-    output reg pcWriteEnable,           // Enables pipeline registers PC and IF_ID
-    output reg registerWrite,           // Whether data is written out to a register
-    output reg memoryToRegister,        // Whether data output to registers is from ALU or memory
-    output reg memoryWrite,             // Whether data is written to memory
-    output reg jalInstruction,          // Whether the instruction is type jal
-    output reg [3:0] aluControl,        // ALU control signals (comprised of ALUOp and ALUControl)
-    output reg aluImmediate,            // Whether the instruction uses the immediate section
-    output reg shiftInstruction,        // Whether the shift amount is used instead of the loaded register
-    output reg destinationRegisterRT,   // Whether the destination register is RT
-    output reg signedExtension,         // Whether the immediate value to extend is signed
-    output reg [1:0] forwardB,          // ForwardMux selector for input A
-    output reg [1:0] forwardA           // ForwardMux selector for input B
+    output reg [1:0] pcSource,          // pcsrc:  NextPCMux selector
+    output reg pcWriteEnable,           // wpcir:  Enables pipeline registers PC and IF_ID
+    output reg registerWrite,           // wreg:   Whether data is written out to a register
+    output reg memoryToRegister,        // m2reg:  Whether data output to registers is from ALU or memory
+    output reg memoryWrite,             // wmem:   Whether data is written to memory
+    output reg jalInstruction,          // jal:    Whether the instruction is type jal
+    output reg [3:0] aluControl,        // aluc:   ALU control signals (comprised of ALUOp and ALUControl)
+    output reg aluImmediate,            // aluimm: Whether the instruction uses the immediate section
+    output reg shiftInstruction,        // shift:  Whether the shift amount is used instead of the loaded register
+    output reg destinationRegisterRT,   // regrt:  Whether the destination register is RT
+    output reg signedExtension,         // sext:   Whether the immediate value to extend is signed
+    output reg [1:0] forwardB,          // fwdb:   ForwardMux selector for input B
+    output reg [1:0] forwardA           // fwda:   ForwardMux selector for input A
     );
 
     // Signals stating whether rs and rt registers are used

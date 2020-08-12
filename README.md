@@ -182,7 +182,7 @@ an ALU control signal from the control unit and performing the relevant function
 given this ALU control signal. A comprehensive list of ALU control signals is
 given below.
 
-| aluc   | Function | Meaning                | Expression      |
+| `aluc` | Function | Meaning                | Expression      |
 | ------ | -------- | ---------------------- | --------------- |
 | `x000` | `ADD`    | Add                    | `out = a + b`   |
 | `x100` | `SUB`    | Subtract               | `out = a - b`   |

@@ -236,12 +236,10 @@ different purposes at the same time.
 
 ## Register-Transfer Level Schematic
 
-# TODO: Re-generate a proper schematic.
-
 A schematic of the working circuit is depicted below. This is automatically
 generated thanks to Xilinx Vivado's built-in RTL analysis.
 
-![img](https://cdn.discordapp.com/attachments/708493375745032213/740037817866125372/unknown.png)
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743343867654307872/unknown.png)
 
 ## Sample Waveforms
 

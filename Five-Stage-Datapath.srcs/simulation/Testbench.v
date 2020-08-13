@@ -98,12 +98,11 @@ module Testbench();
         // The absolute maximum number of clock cycles for this datapath to 
         //  execute all programmed instructions is 3+2n.
 
-        // In this program's case, the absolute maximum number of clock cycles
-        //  to execute the program would be 73.
-        #730;
-        // The program does have looping behavior, so it might possibly compute
-        //  more than 35 instructions. However, doubling the amount of
-        //  instructions is, for our purposes, a generous estimate.
+        // In practice, the program ends up taking ~800ns to reach its
+        //  completion, due to various looping behaaviors.
+        #840;
+        // We will allot 850 seconds total to show off some of the jumping
+        //  functions that occur repeatedly endlessly at the end of the program.
 
         #5; // Down to negative edge
         enable = 0; // Stop clock motion

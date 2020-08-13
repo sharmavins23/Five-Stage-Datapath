@@ -342,7 +342,7 @@ This is the fourth and final iteration of the loop. The `eregisterQA` signal in
 the fourth instruction's execution stage is equal to zero, so the loop has
 finally ended at this point.
 
-![img]()
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743319238063947787/unknown.png)
 
 ```asm
 		jr  		$ra
@@ -354,6 +354,142 @@ return:
 		lw  		$t1, 0($a0)
 		sub 		$t0, $t1, $a0
 ```
+
+The `lw` instruction (the fourth instruction) incurs a stall on the following
+`sub` instruction.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743321224947564604/unknown.png)
+
+```asm
+		addi		$a1, $zero, 3
+loop2:
+		addi    	$a1, $a1, -1
+		ori     	$t0, $a1, 0xffff 		# Immediate value: 65535
+		xori    	$t0, $t0, 0x5555 		# Immediate value: 21845
+		addi    	$t1, $zero, -1
+```
+
+The second looping portion of code is entered at this point.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743326192865902644/unknown.png)
+
+```asm
+		andi    	$t2, $t1, 0xffff 		# Immediate value: 65535
+		or      	$a2, $t2, $t1
+		xor     	$t0, $t2, $t1
+		and 		$a3, $t2, $a2
+		beq     	$a1, $zero, shift
+```
+
+The first iteration of this loop completes with a check, as well as a delayed
+slot directly after.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743328231360561253/unknown.png)
+
+```asm
+dslot2:
+		nop
+
+		j   		loop2
+dslot3:
+		nop
+
+loop2:
+		addi    	$a1, $a1, -1
+		ori     	$t0, $a1, 0xffff 		# Immediate value: 65535
+```
+
+In this second loop, the delay slot is not utilized to process the iteration.
+Instead, `nop` instructions are inserted to ensure no control hazards take
+place.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743329703015874600/unknown.png)
+
+```asm
+		xori    	$t0, $t0, 0x5555 		# Immediate value: 21845
+		addi    	$t1, $zero, -1
+		andi    	$t2, $t1, 0xffff 		# Immediate value: 65535
+		or      	$a2, $t2, $t1
+		xor     	$t0, $t2, $t1
+```
+
+These signals are more of the second loop portion.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743331039329517629/unknown.png)
+
+```asm
+		and 		$a3, $t2, $a2
+		beq     	$a1, $zero, shift
+dslot2:
+		nop
+
+		j   		loop2
+dslot3:
+		nop
+```
+
+The values in the registers `eregisterQA` and `eregisterQB` are not equal again
+(in the second instruction listed in execution) so the loop is continued.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743333471367331900/unknown.png)
+
+```asm
+loop2:
+		addi    	$a1, $a1, -1
+		ori     	$t0, $a1, 0xffff 		# Immediate value: 65535
+		xori    	$t0, $t0, 0x5555 		# Immediate value: 21845
+		addi    	$t1, $zero, -1
+		andi    	$t2, $t1, 0xffff 		# Immediate value: 65535
+```
+
+This is the second and final iteration of the second loop.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743337222815875162/unknown.png)
+
+```asm
+		or      	$a2, $t2, $t1
+		xor     	$t0, $t2, $t1
+		and 		$a3, $t2, $a2
+		beq     	$a1, $zero, shift
+dslot2:
+		nop
+```
+
+The final iteration of the loop ends with the fourth instruction in execution
+having `eregisterQA` and `eregisterQB` equivalent. This ends the loop and jumps
+to the shift portion of the code.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743341554915213342/unknown.png)
+
+```asm
+shift:
+		addi 		$a1, $zero, -1
+		sll 		$t0, $a1, 15
+		sll 		$t0, $t0, 16
+		sra 		$t0, $t0, 16
+		srl 		$t0, $t0, 15
+```
+
+These are the last major instructions that execute - shifting the bits back and
+forth.
+
+![img](https://cdn.discordapp.com/attachments/385581009653202945/743342828176015392/unknown.png)
+
+```asm
+finish:
+		j   		finish
+dslot4:
+		nop
+
+finish:
+		j   		finish
+dslot4:
+		nop
+# This cycle repeats infinitely.
+```
+
+The program "ends" with an infinite loop, with the `nop` instruction in the
+delay slot constantly executing and doing nothing.
 
 ## Project Filestructure
 

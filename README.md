@@ -39,7 +39,7 @@ In this project, the control unit contains the ALU control as well. Though these
 units are generally separated, for the purposes of the project it serves little
 purpose to separate them.
 
-The individual pipeline registers are enabled through a clock signal, which
+The first two pipeline registers are enabled through a clock signal, which
 itself has an enable input which allows the datapath to keep processing
 instructions.
 

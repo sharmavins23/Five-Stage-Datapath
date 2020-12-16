@@ -293,6 +293,7 @@ module ControlUnit(
 
         // In execution, if load word instruction writes to the current register
         //  rs or rt...
+        // TODO: This can be simplified (with the boolean logic around isRSRTUsed)
         stall = eregisterWrite & ememoryToRegister & (eregisterNumber != 0) & ((isRSUsed & (eregisterNumber == rs)) | (isRTUsed & (eregisterNumber == rt)));
         // There will be a stall. In which case...
         if (stall) begin

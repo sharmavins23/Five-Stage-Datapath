@@ -108,6 +108,7 @@ module ControlUnit(
                         registerWrite = 0; // NEVER write in jr, will write to $zero
                         shiftInstruction = 0;
                     end
+                    // TODO: This is intrinsically useless
                     6'b000000: begin // nop: no operation
                         pcSource = 2'b00;
                         registerWrite = 0;

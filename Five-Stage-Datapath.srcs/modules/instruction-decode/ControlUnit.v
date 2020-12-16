@@ -44,7 +44,7 @@ module ControlUnit(
     );
 
     // Signals stating whether rs and rt registers are used
-    reg isRSUsed, isRTUsed;
+    reg isRSUsed, isRTUsed; // TODO: These values are redundant, as RS/RT are always used in conjunction
 
     initial begin
         pcSource = 2'b00; // Select the PC adder

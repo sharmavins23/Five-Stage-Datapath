@@ -11,8 +11,8 @@
 module ArithmeticLogicUnit(
     // Inputs
     input [3:0] aluControl,
-    signed input [31:0] a,
-    signed input [31:0] b,
+    input signed [31:0] a,
+    input signed [31:0] b,
     // Outputs
     output reg [31:0] out
     );
@@ -37,7 +37,7 @@ module ArithmeticLogicUnit(
             4'b0111: // SRL
                 out = b >> a;
             4'b1111: // SRA
-                out = $signed(b >>> a);
+                out = b >>> a;
         endcase
     end
 endmodule

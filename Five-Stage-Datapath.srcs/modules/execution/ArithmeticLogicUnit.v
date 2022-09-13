@@ -11,8 +11,8 @@
 module ArithmeticLogicUnit(
     // Inputs
     input [3:0] aluControl,
-    input [31:0] a,
-    input [31:0] b,
+    input signed [31:0] a,
+    input signed [31:0] b,
     // Outputs
     output reg [31:0] out
     );
